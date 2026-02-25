@@ -6,20 +6,39 @@ import 'add_entry_state.dart';
 class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
   final AddEntryUseCase _addEntryUseCase;
 
-  AddEntryBloc(this._addEntryUseCase) : super(const AddEntryState()) {
+  AddEntryBloc(this._addEntryUseCase) : super(const InitialState()) {
     on<SaveIsExpenseEvent>((event, emit) {
-      emit(state.copyWith(isExpenses: event.isExpense));
+      emit(
+        AddEntryState(
+          isExpenses: event.isExpense,
+          category: state.category,
+          isUnnecessary: state.isUnnecessary,
+        ),
+      );
     });
 
     on<SaveCategoryEvent>((event, emit) {
-      emit(state.copyWith(category: event.category));
+      emit(
+        AddEntryState(
+          isExpenses: state.isExpenses,
+          category: event.category,
+          isUnnecessary: state.isUnnecessary,
+        ),
+      );
     });
 
     on<SaveIsUnnecessaryEvent>((event, emit) {
-      emit(state.copyWith(isUnnecessary: event.isUnnecessary));
+      emit(
+        AddEntryState(
+          isExpenses: state.isExpenses,
+          category: state.category,
+          isUnnecessary: event.isUnnecessary,
+        ),
+      );
     });
 
     on<SaveExpenseEvent>((event, emit) {
+      emit(LoadingState());
       _addEntryUseCase.addEntryLocal(
         isExpense: state.isExpenses,
         sum: event.sum,

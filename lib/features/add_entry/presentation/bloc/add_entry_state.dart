@@ -8,20 +8,6 @@ class AddEntryState {
     this.category = '',
     this.isUnnecessary = false,
   });
-
-  AddEntryState copyWith({
-    bool? isExpenses,
-    int? sum,
-    String? category,
-    bool? isUnnecessary,
-    String? comment,
-  }) {
-    return AddEntryState(
-      isExpenses: isExpenses ?? this.isExpenses,
-      category: category ?? this.category,
-      isUnnecessary: isUnnecessary ?? this.isUnnecessary,
-    );
-  }
 }
 
 class InitialState extends AddEntryState {
