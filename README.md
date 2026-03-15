@@ -1,16 +1,40 @@
-# finance_tracker
+# 💰 Finance Tracker
 
-Application for tracked income and expenses
+Мобильное приложение для учета доходов и расходов, написанное на **Flutter**.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🛠 Технологический стек
 
-A few resources to get you started if this is your first Flutter project:
+Проект спроектирован с упором на надежность, реактивность и чистый код:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* **State Management:** [BLoC / Cubit] 
+* **Database:** [Drift] 
+* **DI:** [Get_it]
+* **Navigation:** [GoRouter]
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🏗 Архитектура проекта
+
+Приложение следует принципу **Feature-first Layered Architecture**. Весь код разделен на независимые модули (фичи), что упрощает поддержку и масштабирование.
+
+### Структура папок:
+
+```text
+lib/
+├── app/                        # Инициализация и глобальная конфигурация
+│   ├── app.dart                # Корневой виджет приложения
+│   ├── database/               # Описание схем Drift и миграции
+│   ├── di/                     # Настройка GetIt (Dependency Injection)
+│   └── router/                 # Конфигурация GoRouter (маршруты)
+├── core/                       # Общие ресурсы (Shared)
+│   ├── themes/                 # Цвета (colors.dart), размеры, стили текста
+│   ├── utils/                  # Полезные утилиты (LoadingOverlay, SnackBar)
+│   └── widgets/                # Переиспользуемые UI компоненты (UI Kit)
+├── features/                   # Функциональные модули
+│   └── [feature_name]/         # Например: transactions, categories, stats
+│       ├── data/               # Репозитории (Impl) и Drift DAO
+│       ├── domain/             # Модели (Entities) и контракты репозиториев
+│       └── presentation/       # UI (Screens) и логика (Bloc/Cubit)
+└── main.dart                   # Точка входа в приложение
