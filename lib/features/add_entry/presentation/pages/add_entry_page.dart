@@ -1,7 +1,10 @@
+import 'package:finance_tracker/app/di/injection.dart';
 import 'package:finance_tracker/core/widgets/standar_app_bar.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_bloc.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/expense_screen.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/income_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/themes/colors.dart';
 import '../../../../core/themes/dimens.dart';
@@ -49,7 +52,13 @@ class _AddEntryPageState extends State<AddEntryPage>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [ExpenseScreen(), IncomeScreen()],
+              children: [
+                BlocProvider(
+                  create: (context) => serviceLocator<ExpenseBloc>(),
+                  child: ExpenseScreen(),
+                ),
+                IncomeScreen(),
+              ],
             ),
           ),
         ],
