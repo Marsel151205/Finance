@@ -19,11 +19,10 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     Emitter<ExpenseState> emit,
   ) async {
     emit(LoadingExpenseState());
-    try {
-      final result = _addExpenseUseCase.call(event.model.toEntity());
-      emit(SuccessExpenseState());
-    } catch (e) {
-      emit(ErrorExpenseState(e.toString()));
-    }
+    final result = await _addExpenseUseCase.call(event.model.toEntity());
+    result.fold(
+      (error) => emit(ErrorExpenseState(error)),
+      (success) => emit(SuccessExpenseState()),
+    );
   }
 }
