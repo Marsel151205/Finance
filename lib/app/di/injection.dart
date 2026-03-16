@@ -1,6 +1,7 @@
 import 'package:finance_tracker/app/database/database.dart';
 import 'package:finance_tracker/features/add_entry/data/repositories/expense_repository_impl.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/add_expense_use_case.dart';
+import 'package:finance_tracker/features/add_entry/domain/use_cases/get_expense_categories_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/add_entry/domain/repositories/add_expense_repository.dart';
@@ -19,7 +20,10 @@ void initDependencies() {
   serviceLocator.registerLazySingleton<AddExpenseUseCase>(
     () => AddExpenseUseCase(serviceLocator<ExpenseRepository>()),
   );
+  serviceLocator.registerLazySingleton<GetExpenseCategoriesUseCase>(
+    () => GetExpenseCategoriesUseCase(),
+  );
   serviceLocator.registerFactory<ExpenseBloc>(
-    () => ExpenseBloc(serviceLocator()),
+    () => ExpenseBloc(serviceLocator(), serviceLocator()),
   );
 }
