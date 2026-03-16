@@ -1,8 +1,12 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
 import 'package:finance_tracker/core/widgets/amount_input_field.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_state.dart';
+import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/expense/expense_bloc.dart';
 
 class ExpenseScreen extends StatefulWidget {
   const ExpenseScreen({super.key});
@@ -14,7 +18,7 @@ class ExpenseScreen extends StatefulWidget {
 class _ExpenseScreenState extends State<ExpenseScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(
+    return BlocConsumer<ExpenseBloc, ExpenseState>(
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.only(left: paddingLeft10, right: paddingRight10),
@@ -42,7 +46,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   ),
                 ),
               ),
-              
+              Expanded(child: CategoriesList()),
             ],
           ),
         );
