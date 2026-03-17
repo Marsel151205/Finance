@@ -35,6 +35,7 @@ class _AddEntryPageState extends State<AddEntryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor,
       appBar: StandardAppBar(title: 'Новая запись'),
       body: Column(
