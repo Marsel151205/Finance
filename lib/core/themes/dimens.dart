@@ -1,5 +1,5 @@
 // Paddings
-final double padding12 = 12;
+final double padding12 = 12.0;
 final double paddingVertical24 = 24;
 final double paddingVertical40 = 40;
 final double paddingHorizontal24 = 24;
@@ -13,8 +13,12 @@ final double paddingTop10 = 10;
 final double textSize30 = 30;
 final double textSize24 = 24;
 final double textSize20 = 20;
+final double textSize18 = 18;
 final double textSize16 = 16;
 final double textSize14 = 14;
+final double textSize12 = 12;
+final double textSize10 = 10;
+final double textSize8 = 8;
 
 // Heights
 final double height6 = 6;
@@ -27,3 +31,4 @@ final double width100 = 100;
 
 // Circulars
 final double circular2 = 2;
+final double circular12 = 12;
