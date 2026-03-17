@@ -1,4 +1,4 @@
-import 'package:finance_tracker/features/add_entry/domain/entities/expense_category_entity.dart';
+import 'package:finance_tracker/features/add_entry/domain/entities/expense/expense_category_entity.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +18,8 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     });
   }
 
+  String? _selectedCategory;
+
   Future<void> _saveExpense(
     SaveExpenseEvent event,
     Emitter<ExpenseState> emit,
@@ -32,4 +34,8 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
 
   List<ExpenseCategoryEntity> getExpenseCategories() =>
       _getExpenseCategoriesUseCase.getExpenseCategories();
+
+  void setSelectedCategory(String category) {
+    _selectedCategory = category;
+  }
 }
