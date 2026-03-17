@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../themes/colors.dart';
 import '../themes/dimens.dart';
@@ -35,7 +34,9 @@ class _AmountInputFieldState extends State<AmountInputField> {
                   child: TextField(
                     controller: _controller,
                     keyboardType: TextInputType.number,
-                    onTapOutside: (_) {},
+                    onTapOutside: (_) {
+                      FocusScope.of(context).unfocus();
+                    },
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     style: TextStyle(
                       color: textColorPrimary,
