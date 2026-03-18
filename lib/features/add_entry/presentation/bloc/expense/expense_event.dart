@@ -3,7 +3,7 @@ import '../../models/expense_model.dart';
 abstract class ExpenseEvent {}
 
 class SaveExpenseEvent extends ExpenseEvent {
-  final ExpenseModelUi model;
+  final bool isUnnecessary;
 
-  SaveExpenseEvent(this.model);
+  SaveExpenseEvent(this.isUnnecessary);
 }
