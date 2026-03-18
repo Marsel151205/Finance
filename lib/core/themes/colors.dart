@@ -2,7 +2,7 @@ import 'dart:ui';
 
 // Background Colors
 final Color backgroundColor = Color(0xFFffffff);
-final Color backgroundGreen = Color(0xFF4dff4d);
+final Color backgroundGreen = Color(0xff064306);
 final Color backgroundRed = Color(0xFFfc3f3f);
 
 // Text Colors
@@ -15,7 +15,7 @@ final Color secondaryTextColor = Color(0xFF666669);
 final Color widgetColorPrimary = Color(0xFF5856D6);
 final Color widgetColorSecondary = Color(0xfff5f5f5);
 final Color selectedColorPrimary = Color(0xFFc2c3c4);
-final Color primaryButtonColor = Color(0xFFc3e0eb);
+final Color primaryButtonColor = Color(0xffb5b4b4);
 
 // Stroke Colors
 final Color strokeColorPrimary = Color(0xFFe1e2e3);
