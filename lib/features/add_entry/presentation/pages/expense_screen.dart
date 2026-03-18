@@ -1,6 +1,9 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
+import 'package:finance_tracker/core/utils/loading_overlay.dart';
+import 'package:finance_tracker/core/utils/message_snack_bar.dart';
 import 'package:finance_tracker/core/widgets/amount_input_field.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_event.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_state.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_input_field.dart';
@@ -52,7 +55,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 ),
                 SizedBox(height: 250, child: CategoriesList()),
                 Container(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(padding12),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: widgetColorSecondary,
@@ -63,7 +66,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text('⚠️', style: TextStyle(fontSize: textSize18)),
-                      SizedBox(width: 12),
+                      SizedBox(width: width12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -99,7 +102,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: height12),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -111,25 +114,61 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 12),
+                SizedBox(height: height12),
                 CommentInputField(),
-                SizedBox(height: 12),
+                SizedBox(height: height12),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<ExpenseBloc>().add(
+                      SaveExpenseEvent(isUnnecessary),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryButtonColor,
+                    minimumSize: const Size(double.infinity, 0),
+                    padding: EdgeInsets.only(
+                      top: paddingTop16,
+                      bottom: paddingBottom16,
+                    ),
+                    elevation: 1,
+                    backgroundColor: widgetColorSecondary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadiusGeometry.circular(circular12),
                     ),
                   ),
-                  child: const Text('Добавить'),
+                  child: Text(
+                    'Сохранить расход',
+                    style: TextStyle(
+                      color: textColorPrimary,
+                      fontWeight: FontWeight.w500,
+                      fontSize: textSize16,
+                    ),
+                  ),
                 ),
+                SizedBox(height: height12),
               ],
             ),
           ),
         );
       },
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is LoadingExpenseState) LoadingOverlay.show(context);
+        if (state is SuccessExpenseState) {
+          LoadingOverlay.hide();
+          showMessageSnackBar(
+            context,
+            title: 'Расход успешно добавлен',
+            status: true,
+          );
+        }
+        if (state is ErrorExpenseState) {
+          LoadingOverlay.hide();
+          showMessageSnackBar(
+            context,
+            title: state.errorMessage,
+            status: false,
+          );
+        }
+      },
     );
   }
 }
