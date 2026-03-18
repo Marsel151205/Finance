@@ -13,29 +13,47 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
 
   ExpenseBloc(this._addExpenseUseCase, this._getExpenseCategoriesUseCase)
     : super(ExpenseState()) {
-    on<SaveExpenseEvent>((event, emit) {
-      _saveExpense(event, emit);
+    on<SaveExpenseEvent>((event, emit) async {
+      await _saveExpense(event, emit);
     });
   }
 
-  String? _selectedCategory;
+  int _sum = 0;
+  String _selectedCategory = 'Без названия';
+  String _comment = '';
 
   Future<void> _saveExpense(
     SaveExpenseEvent event,
     Emitter<ExpenseState> emit,
   ) async {
     emit(LoadingExpenseState());
-    final result = await _addExpenseUseCase.call(event.model.toEntity());
-    result.fold(
-      (error) => emit(ErrorExpenseState(error)),
-      (success) => emit(SuccessExpenseState()),
-    );
+    await Future.delayed(Duration(milliseconds: 500), () async {
+      final model = ExpenseModelUi(
+        sum: _sum,
+        category: _selectedCategory,
+        isUnnecessary: event.isUnnecessary,
+        comment: _comment,
+      );
+      final result = await _addExpenseUseCase.call(model.toEntity());
+      result.fold(
+        (error) => emit(ErrorExpenseState(error)),
+        (success) => emit(SuccessExpenseState()),
+      );
+    });
   }
 
   List<ExpenseCategoryEntity> getExpenseCategories() =>
       _getExpenseCategoriesUseCase.getExpenseCategories();
 
+  void setSum(int sum) {
+    _sum = sum;
+  }
+
   void setSelectedCategory(String category) {
     _selectedCategory = category;
+  }
+
+  void setComment(String comment) {
+    _comment = comment;
   }
 }
