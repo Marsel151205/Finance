@@ -1,5 +1,9 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/themes/dimens.dart';
+import '../bloc/expense/expense_bloc.dart';
 
 class CommentInputField extends StatefulWidget {
   const CommentInputField({super.key});
@@ -17,14 +21,25 @@ class _CommentInputFieldState extends State<CommentInputField> {
     return TextField(
       controller: _commentTextFieldController,
       keyboardType: TextInputType.text,
-      onTapOutside: (_) {
+      onSubmitted: (_) {
+        context.read<ExpenseBloc>().setComment(
+          _commentTextFieldController.text,
+        );
+      },
+      onTapOutside: (value) {
         FocusScope.of(context).unfocus();
+        context.read<ExpenseBloc>().setComment(
+          _commentTextFieldController.text,
+        );
       },
       decoration: InputDecoration(
-        hintText: 'Комментарий',
-        hintStyle: TextStyle(color: secondaryTextColor),
+        hintText: 'Добавить описание...',
+        hintStyle: TextStyle(
+          color: secondaryTextColor,
+          fontSize: textSize14,
+          fontWeight: FontWeight.w500,
+        ),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-
       ),
     );
   }
