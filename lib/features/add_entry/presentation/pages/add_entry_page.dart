@@ -1,5 +1,4 @@
 import 'package:finance_tracker/app/di/injection.dart';
-import 'package:finance_tracker/core/widgets/standar_app_bar.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_bloc.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/expense_screen.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/income_screen.dart';
@@ -37,7 +36,6 @@ class _AddEntryPageState extends State<AddEntryPage>
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor,
-      appBar: StandardAppBar(title: 'Новая запись'),
       body: Column(
         children: [
           TabBar(
