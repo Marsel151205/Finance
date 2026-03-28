@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:finance_tracker/features/add_entry/data/models/expense_data_extensions.dart';
-import 'package:finance_tracker/features/add_entry/domain/entities/expense/expense_entity.dart';
+import 'package:finance_tracker/shared/domain/entities/expense_entity.dart';
 import 'package:finance_tracker/features/add_entry/domain/repositories/add_expense_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -25,16 +24,6 @@ class ExpenseRepositoryImpl implements ExpenseRepository {
             ),
           );
       return Right(unit);
-    } catch (e) {
-      return Left(e.toString());
-    }
-  }
-
-  @override
-  Future<Either<String, List<ExpenseEntity>>> getAll() async {
-    try {
-      final items = await appDatabase.select(appDatabase.expenseItem).get();
-      return Right(items.map((e) => e.toEntity()).toList());
     } catch (e) {
       return Left(e.toString());
     }
