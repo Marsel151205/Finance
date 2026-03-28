@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../themes/colors.dart';
-import '../themes/dimens.dart';
+import '../../../core/themes/colors.dart';
+import '../../../core/themes/dimens.dart';
 
 class AmountInputField extends StatefulWidget {
   const AmountInputField({super.key});
