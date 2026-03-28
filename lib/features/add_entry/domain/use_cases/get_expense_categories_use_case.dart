@@ -1,4 +1,4 @@
-import '../entities/expense/expense_category_entity.dart';
+import '../entities/expense_category_entity.dart';
 
 class GetExpenseCategoriesUseCase {
   List<ExpenseCategoryEntity> getExpenseCategories() {
