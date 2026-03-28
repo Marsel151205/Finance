@@ -1,6 +1,6 @@
 import 'package:finance_tracker/app/app_scaffold.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/add_entry_page.dart';
-import 'package:finance_tracker/features/main/presentation/pages/main_screen.dart';
+import 'package:finance_tracker/features/main/presentation/pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
