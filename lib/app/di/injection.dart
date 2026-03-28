@@ -2,6 +2,9 @@ import 'package:finance_tracker/app/database/database.dart';
 import 'package:finance_tracker/features/add_entry/data/repositories/expense_repository_impl.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/add_expense_use_case.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_expense_categories_use_case.dart';
+import 'package:finance_tracker/features/main/data/repositories/expense_list_repository_impl.dart';
+import 'package:finance_tracker/features/main/domain/repositories/expense_list_repository.dart';
+import 'package:finance_tracker/features/main/domain/use_cases/get_expense_list_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/add_entry/domain/repositories/add_expense_repository.dart';
@@ -13,7 +16,7 @@ void initDependencies() {
   // Database
   serviceLocator.registerSingleton<AppDatabase>(AppDatabase());
 
-  // Expense
+  // Add Expense
   serviceLocator.registerLazySingleton<ExpenseRepository>(
     () => ExpenseRepositoryImpl(serviceLocator<AppDatabase>()),
   );
@@ -25,5 +28,13 @@ void initDependencies() {
   );
   serviceLocator.registerFactory<ExpenseBloc>(
     () => ExpenseBloc(serviceLocator(), serviceLocator()),
+  );
+
+  // Expense List
+  serviceLocator.registerLazySingleton<ExpenseListRepository>(
+    () => ExpenseListRepositoryImpl(serviceLocator<AppDatabase>()),
+  );
+  serviceLocator.registerLazySingleton<GetExpenseListUseCase>(
+    () => GetExpenseListUseCase(serviceLocator<ExpenseListRepository>()),
   );
 }
