@@ -2,7 +2,6 @@ import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
 import 'package:finance_tracker/core/utils/loading_overlay.dart';
 import 'package:finance_tracker/core/utils/message_snack_bar.dart';
-import 'package:finance_tracker/core/widgets/amount_input_field.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_event.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_state.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
@@ -10,6 +9,7 @@ import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../shared/presentation/widgets/amount_input_field.dart';
 import '../bloc/expense/expense_bloc.dart';
 
 class ExpenseScreen extends StatefulWidget {
