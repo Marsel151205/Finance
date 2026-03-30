@@ -27,3 +27,15 @@ extension ExpenseModelUiMapper on ExpenseModelUi {
     );
   }
 }
+
+extension ExpenseEntityMapper on ExpenseEntity {
+  ExpenseModelUi toModelUi() {
+    return ExpenseModelUi(
+      id: id,
+      sum: sum,
+      category: category,
+      isUnnecessary: isUnnecessary,
+      comment: comment,
+    );
+  }
+}
