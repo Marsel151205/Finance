@@ -2,8 +2,11 @@ import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/features/main/presentation/pages/expense_list_screen.dart';
 import 'package:finance_tracker/features/main/presentation/pages/income_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../app/di/injection.dart';
 import '../../../../core/themes/dimens.dart';
+import '../bloc/expense_list_bloc.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -48,7 +51,13 @@ class _MainPageState extends State<MainPage>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [ExpenseListScreen(), IncomeListScreen()],
+              children: [
+                BlocProvider(
+                  create: (context) => serviceLocator<ExpenseListBloc>(),
+                  child: ExpenseListScreen(),
+                ),
+                IncomeListScreen(),
+              ],
             ),
           ),
         ],
