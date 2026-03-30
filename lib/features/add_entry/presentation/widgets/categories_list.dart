@@ -1,6 +1,6 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_bloc.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +16,7 @@ class _CategoriesListState extends State<CategoriesList> {
 
   @override
   Widget build(BuildContext context) {
-    final items = context.read<ExpenseBloc>().getExpenseCategories();
+    final items = context.read<AddExpenseBloc>().getExpenseCategories();
     return GridView.builder(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.all(padding12),
@@ -35,7 +35,7 @@ class _CategoriesListState extends State<CategoriesList> {
           onTap: () {
             setState(() {
               _selectedIndex = isSelected ? null : index;
-              context.read<ExpenseBloc>().setSelectedCategory(item.title);
+              context.read<AddExpenseBloc>().setSelectedCategory(item.title);
             });
           },
           child: Container(

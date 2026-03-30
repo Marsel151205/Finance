@@ -9,7 +9,7 @@ import 'package:finance_tracker/features/main/presentation/bloc/expense_list_blo
 import 'package:get_it/get_it.dart';
 
 import '../../features/add_entry/domain/repositories/add_expense_repository.dart';
-import '../../features/add_entry/presentation/bloc/expense/expense_bloc.dart';
+import '../../features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -27,8 +27,8 @@ void initDependencies() {
   serviceLocator.registerLazySingleton<GetExpenseCategoriesUseCase>(
     () => GetExpenseCategoriesUseCase(),
   );
-  serviceLocator.registerFactory<ExpenseBloc>(
-    () => ExpenseBloc(serviceLocator(), serviceLocator()),
+  serviceLocator.registerFactory<AddExpenseBloc>(
+    () => AddExpenseBloc(serviceLocator(), serviceLocator()),
   );
 
   // Expense List

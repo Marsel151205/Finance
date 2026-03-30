@@ -2,15 +2,15 @@ import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
 import 'package:finance_tracker/core/utils/loading_overlay.dart';
 import 'package:finance_tracker/core/utils/message_snack_bar.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_event.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_state.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_event.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_state.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../shared/presentation/widgets/amount_input_field.dart';
-import '../bloc/expense/expense_bloc.dart';
+import '../bloc/expense/add_expense_bloc.dart';
 
 class ExpenseScreen extends StatefulWidget {
   const ExpenseScreen({super.key});
@@ -24,7 +24,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ExpenseBloc, ExpenseState>(
+    return BlocConsumer<AddExpenseBloc, AddExpenseState>(
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.only(left: paddingLeft10, right: paddingRight10),
@@ -119,7 +119,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 SizedBox(height: height12),
                 ElevatedButton(
                   onPressed: () {
-                    context.read<ExpenseBloc>().add(
+                    context.read<AddExpenseBloc>().add(
                       SaveExpenseEvent(isUnnecessary),
                     );
                   },
@@ -151,8 +151,8 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
         );
       },
       listener: (context, state) {
-        if (state is LoadingExpenseState) LoadingOverlay.show(context);
-        if (state is SuccessExpenseState) {
+        if (state is LoadingAddExpenseState) LoadingOverlay.show(context);
+        if (state is SuccessAddExpenseState) {
           LoadingOverlay.hide();
           showMessageSnackBar(
             context,
@@ -160,7 +160,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             status: true,
           );
         }
-        if (state is ErrorExpenseState) {
+        if (state is ErrorAddExpenseState) {
           LoadingOverlay.hide();
           showMessageSnackBar(
             context,

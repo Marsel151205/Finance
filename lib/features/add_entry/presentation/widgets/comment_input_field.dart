@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/themes/dimens.dart';
-import '../bloc/expense/expense_bloc.dart';
+import '../bloc/expense/add_expense_bloc.dart';
 
 class CommentInputField extends StatefulWidget {
   const CommentInputField({super.key});
@@ -22,13 +22,13 @@ class _CommentInputFieldState extends State<CommentInputField> {
       controller: _commentTextFieldController,
       keyboardType: TextInputType.text,
       onSubmitted: (_) {
-        context.read<ExpenseBloc>().setComment(
+        context.read<AddExpenseBloc>().setComment(
           _commentTextFieldController.text,
         );
       },
       onTapOutside: (value) {
         FocusScope.of(context).unfocus();
-        context.read<ExpenseBloc>().setComment(
+        context.read<AddExpenseBloc>().setComment(
           _commentTextFieldController.text,
         );
       },
