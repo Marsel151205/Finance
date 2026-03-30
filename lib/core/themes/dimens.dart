@@ -36,3 +36,6 @@ final double width100 = 100;
 // Circulars
 final double circular2 = 2;
 final double circular12 = 12;
+
+// Icons Sizes
+final double bottomNavigationIconSize = 30;
