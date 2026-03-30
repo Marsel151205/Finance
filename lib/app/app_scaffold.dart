@@ -35,11 +35,19 @@ class _AppScaffoldState extends State<AppScaffold> {
       ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         currentIndex: _calculateSelectedIndex(context),
         onTap: onTap,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Main'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, size: bottomNavigationIconSize),
+            label: 'Main',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add, size: bottomNavigationIconSize),
+            label: 'Add',
+          ),
         ],
       ),
     );
