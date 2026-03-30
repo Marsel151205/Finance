@@ -1,5 +1,5 @@
 import 'package:finance_tracker/app/di/injection.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_bloc.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/expense_screen.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/income_screen.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _AddEntryPageState extends State<AddEntryPage>
               controller: _tabController,
               children: [
                 BlocProvider(
-                  create: (context) => serviceLocator<ExpenseBloc>(),
+                  create: (context) => serviceLocator<AddExpenseBloc>(),
                   child: ExpenseScreen(),
                 ),
                 IncomeScreen(),

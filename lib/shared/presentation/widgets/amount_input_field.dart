@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/themes/colors.dart';
 import '../../../core/themes/dimens.dart';
-import '../../../features/add_entry/presentation/bloc/expense/expense_bloc.dart';
+import '../../../features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 
 class AmountInputField extends StatefulWidget {
   const AmountInputField({super.key});
@@ -37,7 +37,7 @@ class _AmountInputFieldState extends State<AmountInputField> {
                     controller: _controller,
                     keyboardType: TextInputType.number,
                     onTapOutside: (_) {
-                      context.read<ExpenseBloc>().setSum(
+                      context.read<AddExpenseBloc>().setSum(
                         int.parse(_controller.text),
                       );
                       FocusScope.of(context).unfocus();

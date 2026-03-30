@@ -4,7 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../shared/domain/entities/expense_entity.dart';
 
 class AddExpenseUseCase {
-  final ExpenseRepository repository;
+  final AddExpenseRepository repository;
 
   AddExpenseUseCase(this.repository);
 

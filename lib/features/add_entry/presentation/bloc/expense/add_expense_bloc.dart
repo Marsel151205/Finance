@@ -1,18 +1,18 @@
 import 'package:finance_tracker/features/add_entry/domain/entities/expense_category_entity.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/expense_state.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/use_cases/add_expense_use_case.dart';
 import '../../../domain/use_cases/get_expense_categories_use_case.dart';
 import '../../../../../shared/presentation/models/expense_model.dart';
-import 'expense_event.dart';
+import 'add_expense_event.dart';
 
-class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
+class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {
   final AddExpenseUseCase _addExpenseUseCase;
   final GetExpenseCategoriesUseCase _getExpenseCategoriesUseCase;
 
-  ExpenseBloc(this._addExpenseUseCase, this._getExpenseCategoriesUseCase)
-    : super(ExpenseState()) {
+  AddExpenseBloc(this._addExpenseUseCase, this._getExpenseCategoriesUseCase)
+    : super(AddExpenseState()) {
     on<SaveExpenseEvent>((event, emit) async {
       await _saveExpense(event, emit);
     });
@@ -24,9 +24,9 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
 
   Future<void> _saveExpense(
     SaveExpenseEvent event,
-    Emitter<ExpenseState> emit,
+    Emitter<AddExpenseState> emit,
   ) async {
-    emit(LoadingExpenseState());
+    emit(LoadingAddExpenseState());
     await Future.delayed(Duration(milliseconds: 500), () async {
       final model = ExpenseModelUi(
         sum: _sum,
@@ -36,8 +36,8 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
       );
       final result = await _addExpenseUseCase.call(model.toEntity());
       result.fold(
-        (error) => emit(ErrorExpenseState(error)),
-        (success) => emit(SuccessExpenseState()),
+        (error) => emit(ErrorAddExpenseState(error)),
+        (success) => emit(SuccessAddExpenseState()),
       );
     });
   }
