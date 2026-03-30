@@ -18,11 +18,11 @@ void initDependencies() {
   serviceLocator.registerSingleton<AppDatabase>(AppDatabase());
 
   // Add Expense
-  serviceLocator.registerLazySingleton<ExpenseRepository>(
-    () => ExpenseRepositoryImpl(serviceLocator<AppDatabase>()),
+  serviceLocator.registerLazySingleton<AddExpenseRepository>(
+    () => AddExpenseRepositoryImpl(serviceLocator<AppDatabase>()),
   );
   serviceLocator.registerLazySingleton<AddExpenseUseCase>(
-    () => AddExpenseUseCase(serviceLocator<ExpenseRepository>()),
+    () => AddExpenseUseCase(serviceLocator<AddExpenseRepository>()),
   );
   serviceLocator.registerLazySingleton<GetExpenseCategoriesUseCase>(
     () => GetExpenseCategoriesUseCase(),

@@ -5,10 +5,10 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../app/database/database.dart';
 
-class ExpenseRepositoryImpl implements ExpenseRepository {
+class AddExpenseRepositoryImpl implements AddExpenseRepository {
   final AppDatabase appDatabase;
 
-  ExpenseRepositoryImpl(this.appDatabase);
+  AddExpenseRepositoryImpl(this.appDatabase);
 
   @override
   Future<Either<String, Unit>> add(ExpenseEntity model) async {
