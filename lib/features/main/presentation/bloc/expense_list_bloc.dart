@@ -1,4 +1,5 @@
 import 'package:finance_tracker/features/main/presentation/bloc/expense_list_state.dart';
+import 'package:finance_tracker/shared/presentation/models/expense_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/use_cases/get_expense_list_use_case.dart';
@@ -9,17 +10,24 @@ class ExpenseListBloc extends Bloc<ExpenseListEvent, ExpenseListState> {
 
   ExpenseListBloc(this._getExpenseListUseCase)
     : super(LoadingExpenseListState()) {
-    add(GetExpenseListEvent());
-    on<GetExpenseListEvent>((event, emit) {
-      _getExpenseList(event, emit);
-    });
+    on<GetExpenseListEvent>(_getExpenseList);
     on<ClickExpenseItemEvent>((event, emit) {
       // Logic of clicking on an item
     });
+    add(GetExpenseListEvent());
   }
 
   Future<void> _getExpenseList(
     GetExpenseListEvent event,
     Emitter<ExpenseListState> emit,
-  ) async {}
+  ) async {
+    emit(LoadingExpenseListState());
+    final result = await _getExpenseListUseCase.call();
+    result.fold(
+      (failure) => emit(ErrorExpenseListState(failure)),
+      (success) => emit(
+        SuccessExpenseListState(success.map((e) => e.toModelUi()).toList()),
+      ),
+    );
+  }
 }
