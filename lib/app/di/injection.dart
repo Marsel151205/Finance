@@ -2,6 +2,8 @@ import 'package:finance_tracker/app/database/database.dart';
 import 'package:finance_tracker/features/add_entry/data/repositories/expense_repository_impl.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/add_expense_use_case.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_expense_categories_use_case.dart';
+import 'package:finance_tracker/features/add_entry/domain/use_cases/get_income_sources_use_case.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_income_bloc.dart';
 import 'package:finance_tracker/features/main/data/repositories/expense_list_repository_impl.dart';
 import 'package:finance_tracker/features/main/domain/repositories/expense_list_repository.dart';
 import 'package:finance_tracker/features/main/domain/use_cases/get_expense_list_use_case.dart';
@@ -29,6 +31,12 @@ void initDependencies() {
   );
   serviceLocator.registerFactory<AddExpenseBloc>(
     () => AddExpenseBloc(serviceLocator(), serviceLocator()),
+  );
+
+  // Add Income
+  serviceLocator.registerLazySingleton(() => GetIncomeSourcesUseCase());
+  serviceLocator.registerFactory<AddIncomeBloc>(
+    () => AddIncomeBloc(serviceLocator(), serviceLocator()),
   );
 
   // Expense List
