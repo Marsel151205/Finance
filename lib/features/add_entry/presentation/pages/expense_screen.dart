@@ -32,7 +32,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 12),
+                SizedBox(height: height12),
                 Text(
                   'Сумма',
                   style: TextStyle(
@@ -53,7 +53,17 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 250, child: CategoriesList()),
+                SizedBox(
+                  height: 250,
+                  child: CategoriesList(
+                    expenseList: context
+                        .read<AddExpenseBloc>()
+                        .getExpenseCategories(),
+                    onCategorySelected: (title) => context
+                        .read<AddExpenseBloc>()
+                        .setSelectedCategory(title),
+                  ),
+                ),
                 Container(
                   padding: EdgeInsets.all(padding12),
                   width: double.infinity,
