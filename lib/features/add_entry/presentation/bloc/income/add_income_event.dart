@@ -2,6 +2,6 @@ class AddIncomeEvent {
   const AddIncomeEvent();
 }
 
-class SaveIncomeEvent {
-
+class SaveIncomeEvent extends AddIncomeEvent {
+  const SaveIncomeEvent();
 }
