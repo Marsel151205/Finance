@@ -4,9 +4,14 @@ import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class IncomeSources extends StatelessWidget {
+class IncomeSources extends StatefulWidget {
   const IncomeSources({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _IncomeSourcesState();
+}
+
+class _IncomeSourcesState extends State<IncomeSources> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -15,7 +20,7 @@ class IncomeSources extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 5,
         crossAxisSpacing: 5,
-        childAspectRatio: 1,
+        childAspectRatio: 0.4,
       ),
       itemCount: context.read<AddIncomeBloc>().getIncomeSourcesList().length,
       itemBuilder: (context, index) {
@@ -27,12 +32,15 @@ class IncomeSources extends StatelessWidget {
         return InkWell(
           borderRadius: BorderRadius.circular(circular12),
           onTap: () {
-            context.read<AddIncomeBloc>().setSelectedCategoryIndex(
-              isSelected ? null : index,
-            );
+            setState(() {
+              context.read<AddIncomeBloc>().setSelectedCategoryIndex(
+                isSelected ? null : index,
+              );
+            });
             context.read<AddIncomeBloc>().setSelectedCategory(item);
           },
           child: Container(
+            alignment: Alignment.center,
             padding: EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 6),
             decoration: BoxDecoration(
               color: isSelected ? selectedColorPrimary : widgetColorSecondary,
