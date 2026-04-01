@@ -1,8 +1,6 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/expense_category_entity.dart';
 
