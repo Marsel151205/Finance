@@ -142,7 +142,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     elevation: 1,
                     backgroundColor: widgetColorSecondary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(circular12),
+                      borderRadius: BorderRadius.circular(circular12),
                     ),
                   ),
                   child: Text(
