@@ -25,7 +25,8 @@ class _IncomeSourcesState extends State<IncomeSources> {
       itemCount: context.read<AddIncomeBloc>().getIncomeSourcesList().length,
       itemBuilder: (context, index) {
         final isSelected =
-            context.read<AddIncomeBloc>().getSelectedCategoryIndex() == index;
+            context.read<AddIncomeBloc>().getSelectedIncomeSourceIndex() ==
+            index;
         final item = context
             .read<AddIncomeBloc>()
             .getIncomeSourcesList()[index];
@@ -33,17 +34,17 @@ class _IncomeSourcesState extends State<IncomeSources> {
           borderRadius: BorderRadius.circular(circular12),
           onTap: () {
             setState(() {
-              context.read<AddIncomeBloc>().setSelectedCategoryIndex(
+              context.read<AddIncomeBloc>().setSelectedIncomeSourceIndex(
                 isSelected ? null : index,
               );
             });
-            context.read<AddIncomeBloc>().setSelectedCategory(item);
+            context.read<AddIncomeBloc>().setSelectedIncomeSource(item);
           },
           child: Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 6),
             decoration: BoxDecoration(
-              color: isSelected ? selectedColorPrimary : widgetColorSecondary,
+              color: isSelected ? primaryButtonColor : surfaceColor,
               borderRadius: BorderRadius.circular(circular12),
               border: isSelected
                   ? BoxBorder.all(

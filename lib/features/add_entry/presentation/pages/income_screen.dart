@@ -2,6 +2,7 @@ import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
 import 'package:finance_tracker/core/utils/loading_overlay.dart';
 import 'package:finance_tracker/core/utils/message_snack_bar.dart';
+import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_income_event.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_input_field.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/income_sources.dart';
@@ -34,7 +35,10 @@ class IncomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                AmountInputField(),
+                AmountInputField(
+                  onInputAmount: (value) =>
+                      context.read<AddIncomeBloc>().setSum(value),
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -47,7 +51,7 @@ class IncomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 250,
+                  height: 220,
                   child: CategoriesList(
                     expenseList: context
                         .read<AddIncomeBloc>()
@@ -83,10 +87,15 @@ class IncomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: height12),
-                CommentInputField(),
+                CommentInputField(
+                  onChangeComment: (value) =>
+                      context.read<AddIncomeBloc>().setComment(value),
+                ),
                 SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<AddIncomeBloc>().add(SaveIncomeEvent());
+                  },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 0),
                     padding: EdgeInsets.only(
@@ -94,7 +103,7 @@ class IncomeScreen extends StatelessWidget {
                       bottom: paddingBottom16,
                     ),
                     elevation: 1,
-                    backgroundColor: widgetColorSecondary,
+                    backgroundColor: primaryButtonColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(circular12),
                     ),
@@ -102,9 +111,9 @@ class IncomeScreen extends StatelessWidget {
                   child: Text(
                     'Добавить доход',
                     style: TextStyle(
-                      color: textColorPrimary,
-                      fontWeight: FontWeight.w500,
-                      fontSize: textSize16,
+                      color: buttonTextColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: textSize18,
                     ),
                   ),
                 ),
@@ -122,6 +131,14 @@ class IncomeScreen extends StatelessWidget {
             context,
             title: state.errorMessage,
             status: false,
+          );
+        }
+        if (state is SuccessAddIncomeState) {
+          LoadingOverlay.hide();
+          showMessageSnackBar(
+            context,
+            title: 'Доход успешно сохранен',
+            status: true,
           );
         }
       },
