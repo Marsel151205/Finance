@@ -6,7 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app/di/injection.dart';
 import '../../../../core/themes/dimens.dart';
-import '../bloc/expense_list_bloc.dart';
+import '../bloc/expense/expense_list_bloc.dart';
+import '../bloc/income/income_list_bloc.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -56,7 +57,10 @@ class _MainPageState extends State<MainPage>
                   create: (context) => serviceLocator<ExpenseListBloc>(),
                   child: ExpenseListScreen(),
                 ),
-                IncomeListScreen(),
+                BlocProvider(
+                  create: (context) => serviceLocator<IncomeListBloc>(),
+                  child: IncomeListScreen(),
+                ),
               ],
             ),
           ),
