@@ -1,11 +1,20 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
-import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../domain/entities/expense_category_entity.dart';
 
 class CategoriesList extends StatefulWidget {
-  const CategoriesList({super.key});
+  const CategoriesList({
+    super.key,
+    required this.expenseList,
+    required this.onCategorySelected,
+    this.initialSelectedIndex,
+  });
+
+  final List<CategoryEntity> expenseList;
+  final ValueChanged<String> onCategorySelected;
+  final int? initialSelectedIndex;
 
   @override
   State<StatefulWidget> createState() => _CategoriesListState();
@@ -15,8 +24,13 @@ class _CategoriesListState extends State<CategoriesList> {
   int? _selectedIndex;
 
   @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialSelectedIndex;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final items = context.read<AddExpenseBloc>().getExpenseCategories();
     return GridView.builder(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.all(padding12),
@@ -24,25 +38,30 @@ class _CategoriesListState extends State<CategoriesList> {
         crossAxisCount: 2,
         crossAxisSpacing: 4.0,
         mainAxisSpacing: 4.0,
-        childAspectRatio: 1.0,
+        childAspectRatio: 0.8,
       ),
-      itemCount: items.length,
+      itemCount: widget.expenseList.length,
       itemBuilder: (context, index) {
         final isSelected = _selectedIndex == index;
-        final item = items[index];
+        final item = widget.expenseList[index];
         return InkWell(
           borderRadius: BorderRadius.circular(circular12),
           onTap: () {
             setState(() {
               _selectedIndex = isSelected ? null : index;
-              context.read<AddExpenseBloc>().setSelectedCategory(item.title);
             });
+            widget.onCategorySelected(item.title);
           },
           child: Container(
             decoration: BoxDecoration(
-              color: isSelected ? selectedColorPrimary : widgetColorSecondary,
+              color: isSelected ? primaryButtonColor : surfaceColor,
               borderRadius: BorderRadius.circular(circular12),
-              border: isSelected ? BoxBorder.all(style: BorderStyle.solid, color: backgroundRed) : BoxBorder.all(style: BorderStyle.none)
+              border: isSelected
+                  ? BoxBorder.all(
+                      style: BorderStyle.solid,
+                      color: backgroundRed,
+                    )
+                  : BoxBorder.all(style: BorderStyle.none),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

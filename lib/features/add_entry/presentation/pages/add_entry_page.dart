@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/themes/colors.dart';
 import '../../../../core/themes/dimens.dart';
+import '../bloc/income/add_income_bloc.dart';
 
 class AddEntryPage extends StatefulWidget {
   const AddEntryPage({super.key});
@@ -56,7 +57,10 @@ class _AddEntryPageState extends State<AddEntryPage>
                   create: (context) => serviceLocator<AddExpenseBloc>(),
                   child: ExpenseScreen(),
                 ),
-                IncomeScreen(),
+                BlocProvider(
+                  create: (context) => serviceLocator<AddIncomeBloc>(),
+                  child: IncomeScreen(),
+                ),
               ],
             ),
           ),

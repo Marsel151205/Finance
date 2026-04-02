@@ -1,12 +1,12 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/themes/dimens.dart';
-import '../bloc/expense/add_expense_bloc.dart';
 
 class CommentInputField extends StatefulWidget {
-  const CommentInputField({super.key});
+  const CommentInputField({super.key, required this.onChangeComment});
+
+  final ValueChanged<String> onChangeComment;
 
   @override
   State<StatefulWidget> createState() => _CommentInputFieldState();
@@ -22,15 +22,11 @@ class _CommentInputFieldState extends State<CommentInputField> {
       controller: _commentTextFieldController,
       keyboardType: TextInputType.text,
       onSubmitted: (_) {
-        context.read<AddExpenseBloc>().setComment(
-          _commentTextFieldController.text,
-        );
+        widget.onChangeComment(_commentTextFieldController.text);
       },
       onTapOutside: (value) {
+        widget.onChangeComment(_commentTextFieldController.text);
         FocusScope.of(context).unfocus();
-        context.read<AddExpenseBloc>().setComment(
-          _commentTextFieldController.text,
-        );
       },
       decoration: InputDecoration(
         hintText: 'Добавить описание...',

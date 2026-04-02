@@ -1,6 +1,6 @@
-class ExpenseCategoryEntity {
+class CategoryEntity {
   final String title;
   final String? icon;
 
-  const ExpenseCategoryEntity({required this.title, this.icon});
+  const CategoryEntity({required this.title, this.icon});
 }
