@@ -12,7 +12,7 @@ class CategoriesList extends StatefulWidget {
     this.initialSelectedIndex,
   });
 
-  final List<ExpenseCategoryEntity> expenseList;
+  final List<CategoryEntity> expenseList;
   final ValueChanged<String> onCategorySelected;
   final int? initialSelectedIndex;
 
@@ -38,7 +38,7 @@ class _CategoriesListState extends State<CategoriesList> {
         crossAxisCount: 2,
         crossAxisSpacing: 4.0,
         mainAxisSpacing: 4.0,
-        childAspectRatio: 1.0,
+        childAspectRatio: 0.8,
       ),
       itemCount: widget.expenseList.length,
       itemBuilder: (context, index) {
@@ -54,7 +54,7 @@ class _CategoriesListState extends State<CategoriesList> {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: isSelected ? selectedColorPrimary : widgetColorSecondary,
+              color: isSelected ? primaryButtonColor : surfaceColor,
               borderRadius: BorderRadius.circular(circular12),
               border: isSelected
                   ? BoxBorder.all(
