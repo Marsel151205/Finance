@@ -1,16 +1,16 @@
 import '../entities/expense_category_entity.dart';
 
 class GetExpenseCategoriesUseCase {
-  List<ExpenseCategoryEntity> getExpenseCategories() {
-    List<ExpenseCategoryEntity> expenseList = [
-      ExpenseCategoryEntity(title: 'Еда', icon: '🍕'),
-      ExpenseCategoryEntity(title: 'Транспорт', icon: '🚗'),
-      ExpenseCategoryEntity(title: 'Развелечение', icon: '🎮'),
-      ExpenseCategoryEntity(title: 'Жилье', icon: '🏠'),
-      ExpenseCategoryEntity(title: 'Здоровье', icon: '💊'),
-      ExpenseCategoryEntity(title: 'Одежда', icon: '👕'),
-      ExpenseCategoryEntity(title: 'Подписки', icon: '💳'),
-      ExpenseCategoryEntity(title: 'Другое', icon: '📦'),
+  List<CategoryEntity> getExpenseCategories() {
+    List<CategoryEntity> expenseList = [
+      CategoryEntity(title: 'Еда', icon: '🍕'),
+      CategoryEntity(title: 'Транспорт', icon: '🚗'),
+      CategoryEntity(title: 'Развелечение', icon: '🎮'),
+      CategoryEntity(title: 'Жилье', icon: '🏠'),
+      CategoryEntity(title: 'Здоровье', icon: '💊'),
+      CategoryEntity(title: 'Одежда', icon: '👕'),
+      CategoryEntity(title: 'Подписки', icon: '💳'),
+      CategoryEntity(title: 'Другое', icon: '📦'),
     ];
 
     return expenseList;
