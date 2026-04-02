@@ -12,7 +12,7 @@ class Movement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
-      color: widgetColorSecondary,
+      color: surfaceColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
