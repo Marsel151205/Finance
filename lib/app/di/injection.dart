@@ -8,9 +8,13 @@ import 'package:finance_tracker/features/add_entry/domain/use_cases/get_expense_
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_income_sources_use_case.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_income_bloc.dart';
 import 'package:finance_tracker/features/main/data/repositories/expense_list_repository_impl.dart';
+import 'package:finance_tracker/features/main/data/repositories/income_list_repository_impl.dart';
 import 'package:finance_tracker/features/main/domain/repositories/expense_list_repository.dart';
+import 'package:finance_tracker/features/main/domain/repositories/income_list_repository.dart';
 import 'package:finance_tracker/features/main/domain/use_cases/get_expense_list_use_case.dart';
-import 'package:finance_tracker/features/main/presentation/bloc/expense_list_bloc.dart';
+import 'package:finance_tracker/features/main/domain/use_cases/get_income_list_use_case.dart';
+import 'package:finance_tracker/features/main/presentation/bloc/expense/expense_list_bloc.dart';
+import 'package:finance_tracker/features/main/presentation/bloc/income/income_list_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/add_entry/domain/repositories/add_expense_repository.dart';
@@ -57,5 +61,16 @@ void initDependencies() {
   );
   serviceLocator.registerFactory<ExpenseListBloc>(
     () => ExpenseListBloc(serviceLocator<GetExpenseListUseCase>()),
+  );
+
+  // Income List
+  serviceLocator.registerLazySingleton<IncomeListRepository>(
+    () => IncomeListRepositoryImpl(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GetIncomeListUseCase>(
+    () => GetIncomeListUseCase(serviceLocator()),
+  );
+  serviceLocator.registerFactory<IncomeListBloc>(
+    () => IncomeListBloc(serviceLocator()),
   );
 }
