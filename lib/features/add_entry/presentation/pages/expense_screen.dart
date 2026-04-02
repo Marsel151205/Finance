@@ -41,7 +41,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                AmountInputField(),
+                AmountInputField(
+                  onInputAmount: (value) =>
+                      context.read<AddExpenseBloc>().setSum(value),
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -54,7 +57,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 250,
+                  height: 220,
                   child: CategoriesList(
                     expenseList: context
                         .read<AddExpenseBloc>()
@@ -68,7 +71,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   padding: EdgeInsets.all(padding12),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: widgetColorSecondary,
+                    color: surfaceColor,
                     border: Border.all(width: 1, color: strokeColorPrimary),
                     borderRadius: BorderRadiusDirectional.circular(circular12),
                   ),
@@ -100,13 +103,14 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                       ),
                       Spacer(),
                       Switch(
+                        activeThumbColor: primaryButtonColor,
+                        inactiveThumbColor: surfaceColor,
                         value: isUnnecessary,
                         onChanged: (value) {
                           setState(() {
                             isUnnecessary = value;
                           });
                         },
-                        activeColor: widgetColorPrimary,
                         inactiveTrackColor: widgetColorSecondary,
                       ),
                     ],
@@ -125,7 +129,10 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   ),
                 ),
                 SizedBox(height: height12),
-                CommentInputField(),
+                CommentInputField(
+                  onChangeComment: (value) =>
+                      context.read<AddExpenseBloc>().setComment(value),
+                ),
                 SizedBox(height: height12),
                 ElevatedButton(
                   onPressed: () {
@@ -140,17 +147,17 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                       bottom: paddingBottom16,
                     ),
                     elevation: 1,
-                    backgroundColor: widgetColorSecondary,
+                    backgroundColor: primaryButtonColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(circular12),
                     ),
                   ),
                   child: Text(
-                    'Сохранить расход',
+                    'Добавить расход',
                     style: TextStyle(
-                      color: textColorPrimary,
-                      fontWeight: FontWeight.w500,
-                      fontSize: textSize16,
+                      color: buttonTextColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: textSize18,
                     ),
                   ),
                 ),
