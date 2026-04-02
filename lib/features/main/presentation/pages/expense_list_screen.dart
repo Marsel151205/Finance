@@ -4,8 +4,8 @@ import 'package:finance_tracker/features/main/presentation/widgets/movement.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/expense_list_bloc.dart';
-import '../bloc/expense_list_state.dart';
+import '../bloc/expense/expense_list_bloc.dart';
+import '../bloc/expense/expense_list_state.dart';
 
 class ExpenseListScreen extends StatelessWidget {
   const ExpenseListScreen({super.key});
