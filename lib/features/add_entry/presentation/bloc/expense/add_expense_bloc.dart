@@ -42,7 +42,7 @@ class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {
     });
   }
 
-  List<ExpenseCategoryEntity> getExpenseCategories() =>
+  List<CategoryEntity> getExpenseCategories() =>
       _getExpenseCategoriesUseCase.getExpenseCategories();
 
   void setSum(int sum) {
