@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/themes/colors.dart';
 import '../../../core/themes/dimens.dart';
-import '../../../features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 
 class AmountInputField extends StatefulWidget {
-  const AmountInputField({super.key});
+  const AmountInputField({super.key, required this.onInputAmount});
+
+  final ValueChanged<int> onInputAmount;
 
   @override
   State<StatefulWidget> createState() => _AmountInputFieldState();
@@ -37,9 +37,7 @@ class _AmountInputFieldState extends State<AmountInputField> {
                     controller: _controller,
                     keyboardType: TextInputType.number,
                     onTapOutside: (_) {
-                      context.read<AddExpenseBloc>().setSum(
-                        int.parse(_controller.text),
-                      );
+                      widget.onInputAmount(int.parse(_controller.text));
                       FocusScope.of(context).unfocus();
                     },
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -80,7 +78,7 @@ class _AmountInputFieldState extends State<AmountInputField> {
             width: width100,
             height: height4,
             decoration: BoxDecoration(
-              color: widgetColorPrimary,
+              color: appBarColor,
               borderRadius: BorderRadius.circular(circular2),
             ),
           ),
