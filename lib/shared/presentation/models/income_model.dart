@@ -24,3 +24,14 @@ extension IncomeModelUiMapper on IncomeModelUi {
     );
   }
 }
+
+extension IncomeEntityMapper on IncomeEntity {
+  IncomeModelUi toModelUi() {
+    return IncomeModelUi(
+      sum: sum,
+      category: category,
+      incomeSource: incomeSource,
+      comment: comment,
+    );
+  }
+}
