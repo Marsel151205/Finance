@@ -1,13 +1,15 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/shared/presentation/models/expense_model.dart';
+import 'package:finance_tracker/shared/presentation/models/income_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/themes/dimens.dart';
 
 class Movement extends StatelessWidget {
-  final ExpenseModelUi model;
+  final ExpenseModelUi? model;
+  final IncomeModelUi? incomeModel;
 
-  const Movement({super.key, required this.model});
+  const Movement({super.key, this.model, this.incomeModel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class Movement extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              model.sum.toString(),
+              (model != null ? model?.sum : incomeModel?.sum).toString(),
               style: TextStyle(
                 color: textColorPrimary,
                 fontSize: textSize20,
@@ -27,7 +29,8 @@ class Movement extends StatelessWidget {
               ),
             ),
             Text(
-              model.category.toString(),
+              (model != null ? model?.category : incomeModel?.category)
+                  .toString(),
               style: TextStyle(
                 color: textColorPrimary,
                 fontSize: textSize18,
@@ -35,7 +38,8 @@ class Movement extends StatelessWidget {
               ),
             ),
             Text(
-              model.comment.toString(),
+              (model != null ? model?.comment : incomeModel?.comment)
+                  .toString(),
               style: TextStyle(
                 color: secondaryTextColor,
                 fontSize: textSize16,
