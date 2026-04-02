@@ -30,7 +30,7 @@ class IncomeItem extends Table {
   TextColumn get comment => text().nullable()();
 }
 
-@DriftDatabase(tables: [ExpenseItem, IncomeSources])
+@DriftDatabase(tables: [ExpenseItem, IncomeItem])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
