@@ -1,9 +1,9 @@
 import 'package:finance_tracker/core/themes/colors.dart';
-import 'package:finance_tracker/shared/presentation/models/expense_model.dart';
-import 'package:finance_tracker/shared/presentation/models/income_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/themes/dimens.dart';
+import '../../../../shared/income_and_expense/presentation/models/expense_model.dart';
+import '../../../../shared/income_and_expense/presentation/models/income_model.dart';
 
 class Movement extends StatelessWidget {
   final ExpenseModelUi? model;
@@ -41,7 +41,7 @@ class Movement extends StatelessWidget {
               (model != null ? model?.comment : incomeModel?.comment)
                   .toString(),
               style: TextStyle(
-                color: secondaryTextColor,
+                color: textColorSecondary,
                 fontSize: textSize16,
                 fontWeight: FontWeight.w300,
               ),
