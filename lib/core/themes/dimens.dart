@@ -5,10 +5,13 @@ final double paddingVertical40 = 40;
 final double paddingHorizontal24 = 24;
 final double paddingLeft6 = 6;
 final double paddingLeft10 = 10;
+final double paddingLeft16 = 16;
 final double paddingRight6 = 6;
 final double paddingRight10 = 10;
+final double paddingRight16 = 16;
 final double paddingTop10 = 10;
 final double paddingTop16 = 16;
+final double paddingBottom10 = 10;
 final double paddingBottom16 = 16;
 
 // Text Sizes
@@ -27,6 +30,8 @@ final double height4 = 4;
 final double height6 = 6;
 final double height12 = 12;
 final double height16 = 16;
+final double height20 = 20;
+final double height24 = 24;
 
 // Widths
 final double width12 = 12;
