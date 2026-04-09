@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../core/themes/colors.dart';
-import '../../../core/themes/dimens.dart';
+import '../../../../core/themes/colors.dart';
+import '../../../../core/themes/dimens.dart';
 
 class AmountInputField extends StatefulWidget {
   const AmountInputField({super.key, required this.onInputAmount});
@@ -19,7 +19,7 @@ class _AmountInputFieldState extends State<AmountInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: backgroundColor,
+      color: Colors.transparent,
       padding: EdgeInsets.symmetric(
         vertical: paddingVertical24,
         horizontal: paddingHorizontal24,
@@ -64,7 +64,7 @@ class _AmountInputFieldState extends State<AmountInputField> {
                   child: Text(
                     '₽',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color: textColorSecondary,
                       fontSize: textSize20,
                       fontWeight: FontWeight.w500,
                     ),

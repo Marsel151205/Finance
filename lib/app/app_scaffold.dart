@@ -31,7 +31,7 @@ class _AppScaffoldState extends State<AppScaffold> {
             fontWeight: FontWeight.w900,
           ),
         ),
-        backgroundColor: appBarColor,
+        backgroundColor: backgroundColor,
       ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
@@ -58,7 +58,7 @@ class _AppScaffoldState extends State<AppScaffold> {
 
   int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.toString();
-    if (location.startsWith('/main')) return 0;
+    if (location.startsWith('/overview')) return 0;
     if (location.startsWith('/add_entry')) return 1;
 
     return 0;
@@ -67,11 +67,11 @@ class _AppScaffoldState extends State<AppScaffold> {
   void onTap(int value) {
     switch (value) {
       case 0:
-        context.go('/main');
+        context.go('/overview');
       case 1:
         context.go('/add_entry');
       default:
-        context.go('/main');
+        context.go('/overview');
     }
   }
 }
