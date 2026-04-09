@@ -31,7 +31,7 @@ class _CommentInputFieldState extends State<CommentInputField> {
       decoration: InputDecoration(
         hintText: 'Добавить описание...',
         hintStyle: TextStyle(
-          color: secondaryTextColor,
+          color: textColorSecondary,
           fontSize: textSize14,
           fontWeight: FontWeight.w500,
         ),
