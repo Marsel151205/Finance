@@ -1,6 +1,11 @@
 import 'package:finance_tracker/core/themes/colors.dart';
+import 'package:finance_tracker/core/utils/loading_overlay.dart';
+import 'package:finance_tracker/core/utils/message_snack_bar.dart';
+import 'package:finance_tracker/features/main/presentation/bloc/overview/overview_bloc.dart';
+import 'package:finance_tracker/features/main/presentation/bloc/overview/overview_state.dart';
 import 'package:finance_tracker/features/main/presentation/pages/expense_list_screen.dart';
 import 'package:finance_tracker/features/main/presentation/pages/income_list_screen.dart';
+import 'package:finance_tracker/features/main/presentation/widgets/total_income_and_expense_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,38 +39,100 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      backgroundColor: backgroundColor,
-      body: Column(
-        children: [
-          TabBar(
-            labelColor: selectedTextColor,
-            unselectedLabelColor: unselectedTextColor,
-            labelStyle: TextStyle(fontSize: textSize16),
-            controller: _tabController,
-            tabs: const [
-              Tab(text: 'Расходы'),
-              Tab(text: 'Доходы'),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                BlocProvider(
-                  create: (context) => serviceLocator<ExpenseListBloc>(),
-                  child: ExpenseListScreen(),
-                ),
-                BlocProvider(
-                  create: (context) => serviceLocator<IncomeListBloc>(),
-                  child: IncomeListScreen(),
-                ),
-              ],
+    return BlocConsumer<OverviewBloc, OverviewState>(
+      builder: (context, state) {
+        if (state is SuccessOverviewState) {
+          LoadingOverlay.hide();
+          return Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: backgroundColor,
+            body: Padding(
+              padding: EdgeInsets.all(padding12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Мой Баланс',
+                    style: TextStyle(
+                      color: textColorSecondary,
+                      fontSize: textSize14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    '${state.model.sum.toString()} сом',
+                    style: TextStyle(
+                      color: textColorPrimary,
+                      fontSize: textSize24,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  SizedBox(height: height12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TotalIncomeAndExpenseWidget(
+                          widgetBackgroundColor: expenseWidgetBackground,
+                          textColor: expenseWidgetTextColor,
+                          title: 'Доходы',
+                          sum: state.totalIncome ?? 0,
+                        ),
+                      ),
+                      SizedBox(width: width12),
+                      Expanded(
+                        child: TotalIncomeAndExpenseWidget(
+                          widgetBackgroundColor: incomeWidgetBackground,
+                          textColor: incomeWidgetTextColor,
+                          title: 'Расходы',
+                          sum: state.totalExpense ?? 0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  TabBar(
+                    labelColor: selectedTextColor,
+                    unselectedLabelColor: unselectedTextColor,
+                    labelStyle: TextStyle(fontSize: textSize16),
+                    controller: _tabController,
+                    tabs: const [
+                      Tab(text: 'Расходы'),
+                      Tab(text: 'Доходы'),
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        BlocProvider(
+                          create: (context) =>
+                              serviceLocator<ExpenseListBloc>(),
+                          child: ExpenseListScreen(),
+                        ),
+                        BlocProvider(
+                          create: (context) => serviceLocator<IncomeListBloc>(),
+                          child: IncomeListScreen(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          );
+        }
+        return SizedBox();
+      },
+      listener: (context, state) {
+        if (state is LoadingOverviewState) LoadingOverlay.show(context);
+        if (state is ErrorOverviewState) {
+          LoadingOverlay.hide();
+          showMessageSnackBar(
+            context,
+            title: state.errorMessage,
+            status: false,
+          );
+        }
+      },
     );
   }
 }
