@@ -1,4 +1,5 @@
- import 'package:finance_tracker/shared/presentation/models/expense_model.dart';
+
+import '../../../../../shared/income_and_expense/presentation/models/expense_model.dart';
 
 class ExpenseListState {
   const ExpenseListState();
