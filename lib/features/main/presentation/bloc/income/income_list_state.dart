@@ -1,4 +1,4 @@
-import '../../../../../shared/presentation/models/income_model.dart';
+import '../../../../../shared/income_and_expense/presentation/models/income_model.dart';
 
 class IncomeListState {
   const IncomeListState();

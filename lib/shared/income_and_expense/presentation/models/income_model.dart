@@ -1,4 +1,5 @@
-import 'package:finance_tracker/shared/domain/entities/income_entity.dart';
+
+import '../../domain/entities/income_entity.dart';
 
 class IncomeModelUi {
   final int sum;
