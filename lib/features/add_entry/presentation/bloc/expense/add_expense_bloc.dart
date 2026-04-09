@@ -2,9 +2,9 @@ import 'package:finance_tracker/features/add_entry/domain/entities/expense_categ
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../shared/income_and_expense/presentation/models/expense_model.dart';
 import '../../../domain/use_cases/add_expense_use_case.dart';
 import '../../../domain/use_cases/get_expense_categories_use_case.dart';
-import '../../../../../shared/presentation/models/expense_model.dart';
 import 'add_expense_event.dart';
 
 class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {

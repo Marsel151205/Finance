@@ -1,7 +1,7 @@
 import 'package:finance_tracker/features/add_entry/domain/repositories/add_expense_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../shared/domain/entities/expense_entity.dart';
+import '../../../../shared/income_and_expense/domain/entities/expense_entity.dart';
 
 class AddExpenseUseCase {
   final AddExpenseRepository repository;

@@ -1,7 +1,7 @@
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_income_sources_use_case.dart';
-import 'package:finance_tracker/shared/presentation/models/income_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../shared/income_and_expense/presentation/models/income_model.dart';
 import '../../../domain/entities/expense_category_entity.dart';
 import '../../../domain/use_cases/add_income_use_case.dart';
 import '../../../domain/use_cases/get_expense_categories_use_case.dart';
