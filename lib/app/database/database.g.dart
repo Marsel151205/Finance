@@ -719,16 +719,268 @@ class IncomeItemCompanion extends UpdateCompanion<IncomeItemData> {
   }
 }
 
+class $BalanceItemTable extends BalanceItem
+    with TableInfo<$BalanceItemTable, BalanceItemData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $BalanceItemTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _balanceMeta = const VerificationMeta(
+    'balance',
+  );
+  @override
+  late final GeneratedColumn<int> balance = GeneratedColumn<int>(
+    'balance',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updateAtMeta = const VerificationMeta(
+    'updateAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updateAt = GeneratedColumn<DateTime>(
+    'update_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, balance, updateAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'balance_item';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<BalanceItemData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('balance')) {
+      context.handle(
+        _balanceMeta,
+        balance.isAcceptableOrUnknown(data['balance']!, _balanceMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_balanceMeta);
+    }
+    if (data.containsKey('update_at')) {
+      context.handle(
+        _updateAtMeta,
+        updateAt.isAcceptableOrUnknown(data['update_at']!, _updateAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updateAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BalanceItemData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BalanceItemData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      balance: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}balance'],
+      )!,
+      updateAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}update_at'],
+      )!,
+    );
+  }
+
+  @override
+  $BalanceItemTable createAlias(String alias) {
+    return $BalanceItemTable(attachedDatabase, alias);
+  }
+}
+
+class BalanceItemData extends DataClass implements Insertable<BalanceItemData> {
+  final int id;
+  final int balance;
+  final DateTime updateAt;
+  const BalanceItemData({
+    required this.id,
+    required this.balance,
+    required this.updateAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['balance'] = Variable<int>(balance);
+    map['update_at'] = Variable<DateTime>(updateAt);
+    return map;
+  }
+
+  BalanceItemCompanion toCompanion(bool nullToAbsent) {
+    return BalanceItemCompanion(
+      id: Value(id),
+      balance: Value(balance),
+      updateAt: Value(updateAt),
+    );
+  }
+
+  factory BalanceItemData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BalanceItemData(
+      id: serializer.fromJson<int>(json['id']),
+      balance: serializer.fromJson<int>(json['balance']),
+      updateAt: serializer.fromJson<DateTime>(json['updateAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'balance': serializer.toJson<int>(balance),
+      'updateAt': serializer.toJson<DateTime>(updateAt),
+    };
+  }
+
+  BalanceItemData copyWith({int? id, int? balance, DateTime? updateAt}) =>
+      BalanceItemData(
+        id: id ?? this.id,
+        balance: balance ?? this.balance,
+        updateAt: updateAt ?? this.updateAt,
+      );
+  BalanceItemData copyWithCompanion(BalanceItemCompanion data) {
+    return BalanceItemData(
+      id: data.id.present ? data.id.value : this.id,
+      balance: data.balance.present ? data.balance.value : this.balance,
+      updateAt: data.updateAt.present ? data.updateAt.value : this.updateAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BalanceItemData(')
+          ..write('id: $id, ')
+          ..write('balance: $balance, ')
+          ..write('updateAt: $updateAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, balance, updateAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BalanceItemData &&
+          other.id == this.id &&
+          other.balance == this.balance &&
+          other.updateAt == this.updateAt);
+}
+
+class BalanceItemCompanion extends UpdateCompanion<BalanceItemData> {
+  final Value<int> id;
+  final Value<int> balance;
+  final Value<DateTime> updateAt;
+  const BalanceItemCompanion({
+    this.id = const Value.absent(),
+    this.balance = const Value.absent(),
+    this.updateAt = const Value.absent(),
+  });
+  BalanceItemCompanion.insert({
+    this.id = const Value.absent(),
+    required int balance,
+    required DateTime updateAt,
+  }) : balance = Value(balance),
+       updateAt = Value(updateAt);
+  static Insertable<BalanceItemData> custom({
+    Expression<int>? id,
+    Expression<int>? balance,
+    Expression<DateTime>? updateAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (balance != null) 'balance': balance,
+      if (updateAt != null) 'update_at': updateAt,
+    });
+  }
+
+  BalanceItemCompanion copyWith({
+    Value<int>? id,
+    Value<int>? balance,
+    Value<DateTime>? updateAt,
+  }) {
+    return BalanceItemCompanion(
+      id: id ?? this.id,
+      balance: balance ?? this.balance,
+      updateAt: updateAt ?? this.updateAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (balance.present) {
+      map['balance'] = Variable<int>(balance.value);
+    }
+    if (updateAt.present) {
+      map['update_at'] = Variable<DateTime>(updateAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BalanceItemCompanion(')
+          ..write('id: $id, ')
+          ..write('balance: $balance, ')
+          ..write('updateAt: $updateAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $ExpenseItemTable expenseItem = $ExpenseItemTable(this);
   late final $IncomeItemTable incomeItem = $IncomeItemTable(this);
+  late final $BalanceItemTable balanceItem = $BalanceItemTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [expenseItem, incomeItem];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    expenseItem,
+    incomeItem,
+    balanceItem,
+  ];
 }
 
 typedef $$ExpenseItemTableCreateCompanionBuilder =
@@ -1123,6 +1375,162 @@ typedef $$IncomeItemTableProcessedTableManager =
       IncomeItemData,
       PrefetchHooks Function()
     >;
+typedef $$BalanceItemTableCreateCompanionBuilder =
+    BalanceItemCompanion Function({
+      Value<int> id,
+      required int balance,
+      required DateTime updateAt,
+    });
+typedef $$BalanceItemTableUpdateCompanionBuilder =
+    BalanceItemCompanion Function({
+      Value<int> id,
+      Value<int> balance,
+      Value<DateTime> updateAt,
+    });
+
+class $$BalanceItemTableFilterComposer
+    extends Composer<_$AppDatabase, $BalanceItemTable> {
+  $$BalanceItemTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get balance => $composableBuilder(
+    column: $table.balance,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updateAt => $composableBuilder(
+    column: $table.updateAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$BalanceItemTableOrderingComposer
+    extends Composer<_$AppDatabase, $BalanceItemTable> {
+  $$BalanceItemTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get balance => $composableBuilder(
+    column: $table.balance,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updateAt => $composableBuilder(
+    column: $table.updateAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$BalanceItemTableAnnotationComposer
+    extends Composer<_$AppDatabase, $BalanceItemTable> {
+  $$BalanceItemTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get balance =>
+      $composableBuilder(column: $table.balance, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updateAt =>
+      $composableBuilder(column: $table.updateAt, builder: (column) => column);
+}
+
+class $$BalanceItemTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $BalanceItemTable,
+          BalanceItemData,
+          $$BalanceItemTableFilterComposer,
+          $$BalanceItemTableOrderingComposer,
+          $$BalanceItemTableAnnotationComposer,
+          $$BalanceItemTableCreateCompanionBuilder,
+          $$BalanceItemTableUpdateCompanionBuilder,
+          (
+            BalanceItemData,
+            BaseReferences<_$AppDatabase, $BalanceItemTable, BalanceItemData>,
+          ),
+          BalanceItemData,
+          PrefetchHooks Function()
+        > {
+  $$BalanceItemTableTableManager(_$AppDatabase db, $BalanceItemTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$BalanceItemTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$BalanceItemTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$BalanceItemTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> balance = const Value.absent(),
+                Value<DateTime> updateAt = const Value.absent(),
+              }) => BalanceItemCompanion(
+                id: id,
+                balance: balance,
+                updateAt: updateAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int balance,
+                required DateTime updateAt,
+              }) => BalanceItemCompanion.insert(
+                id: id,
+                balance: balance,
+                updateAt: updateAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$BalanceItemTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $BalanceItemTable,
+      BalanceItemData,
+      $$BalanceItemTableFilterComposer,
+      $$BalanceItemTableOrderingComposer,
+      $$BalanceItemTableAnnotationComposer,
+      $$BalanceItemTableCreateCompanionBuilder,
+      $$BalanceItemTableUpdateCompanionBuilder,
+      (
+        BalanceItemData,
+        BaseReferences<_$AppDatabase, $BalanceItemTable, BalanceItemData>,
+      ),
+      BalanceItemData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -1131,4 +1539,6 @@ class $AppDatabaseManager {
       $$ExpenseItemTableTableManager(_db, _db.expenseItem);
   $$IncomeItemTableTableManager get incomeItem =>
       $$IncomeItemTableTableManager(_db, _db.incomeItem);
+  $$BalanceItemTableTableManager get balanceItem =>
+      $$BalanceItemTableTableManager(_db, _db.balanceItem);
 }

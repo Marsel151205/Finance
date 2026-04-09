@@ -30,7 +30,18 @@ class IncomeItem extends Table {
   TextColumn get comment => text().nullable()();
 }
 
-@DriftDatabase(tables: [ExpenseItem, IncomeItem])
+class BalanceItem extends Table {
+  IntColumn get id => integer()();
+
+  IntColumn get balance => integer()();
+
+  DateTimeColumn get updateAt => dateTime()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {id};
+}
+
+@DriftDatabase(tables: [ExpenseItem, IncomeItem, BalanceItem])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
