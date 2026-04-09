@@ -6,10 +6,10 @@ import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_
 import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_input_field.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/income_sources.dart';
-import 'package:finance_tracker/shared/presentation/widgets/amount_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../shared/income_and_expense/presentation/widgets/amount_input_field.dart';
 import '../bloc/income/add_income_bloc.dart';
 import '../bloc/income/add_income_state.dart';
 
@@ -30,7 +30,7 @@ class IncomeScreen extends StatelessWidget {
                 Text(
                   'Сумма',
                   style: TextStyle(
-                    color: secondaryTextColor,
+                    color: textColorSecondary,
                     fontSize: textSize16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -44,7 +44,7 @@ class IncomeScreen extends StatelessWidget {
                   child: Text(
                     'Категории',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color: textColorSecondary,
                       fontSize: textSize16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -66,7 +66,7 @@ class IncomeScreen extends StatelessWidget {
                   child: Text(
                     'Источник дохода',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color: textColorSecondary,
                       fontSize: textSize16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -80,7 +80,7 @@ class IncomeScreen extends StatelessWidget {
                   child: Text(
                     'Комментарий',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color: textColorSecondary,
                       fontSize: textSize16,
                       fontWeight: FontWeight.w500,
                     ),
