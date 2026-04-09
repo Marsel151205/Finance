@@ -9,7 +9,7 @@ import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../shared/presentation/widgets/amount_input_field.dart';
+import '../../../../shared/income_and_expense/presentation/widgets/amount_input_field.dart';
 import '../bloc/expense/add_expense_bloc.dart';
 
 class ExpenseScreen extends StatefulWidget {
@@ -36,7 +36,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 Text(
                   'Сумма',
                   style: TextStyle(
-                    color: secondaryTextColor,
+                    color: textColorSecondary,
                     fontSize: textSize16,
                     fontWeight: FontWeight.w600,
                   ),
@@ -50,7 +50,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   child: Text(
                     'Категории',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color: textColorSecondary,
                       fontSize: textSize16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -94,7 +94,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                           Text(
                             'Отметить как лишнюю трату',
                             style: TextStyle(
-                              color: secondaryTextColor,
+                              color: textColorSecondary,
                               fontSize: textSize10,
                               fontWeight: FontWeight.w300,
                             ),
@@ -122,7 +122,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   child: Text(
                     'Комментарий',
                     style: TextStyle(
-                      color: secondaryTextColor,
+                      color: textColorSecondary,
                       fontSize: textSize16,
                       fontWeight: FontWeight.w500,
                     ),
