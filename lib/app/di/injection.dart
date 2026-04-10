@@ -39,7 +39,7 @@ void initDependencies() {
     () => AddExpenseRepositoryImpl(serviceLocator<AppDatabase>()),
   );
   serviceLocator.registerLazySingleton<AddExpenseUseCase>(
-    () => AddExpenseUseCase(serviceLocator<AddExpenseRepository>()),
+    () => AddExpenseUseCase(serviceLocator(), serviceLocator()),
   );
   serviceLocator.registerLazySingleton<GetExpenseCategoriesUseCase>(
     () => GetExpenseCategoriesUseCase(),
@@ -53,7 +53,7 @@ void initDependencies() {
     () => AddIncomeRepositoryImpl(serviceLocator()),
   );
   serviceLocator.registerLazySingleton<AddIncomeUseCase>(
-    () => AddIncomeUseCase(serviceLocator<AddIncomeRepository>()),
+    () => AddIncomeUseCase(serviceLocator(), serviceLocator()),
   );
   serviceLocator.registerLazySingleton(() => GetIncomeSourcesUseCase());
   serviceLocator.registerFactory<AddIncomeBloc>(

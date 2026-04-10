@@ -7,7 +7,6 @@ import 'package:finance_tracker/features/create_balance/presentation/bloc/create
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../shared/income_and_expense/presentation/widgets/amount_input_field.dart';
 import '../bloc/create_balance_bloc.dart';
@@ -20,14 +19,7 @@ class CreateBalancePage extends StatefulWidget {
 }
 
 class _CreateBalanceState extends State<CreateBalancePage> {
-  SharedPreferences? _preferences;
   int? sum;
-
-  @override
-  void initState() {
-    super.initState();
-    _initPreferences();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,14 +136,9 @@ class _CreateBalanceState extends State<CreateBalancePage> {
         }
         if (state is SuccessCreateBalanceState) {
           LoadingOverlay.hide();
-          _preferences?.setBool('isFirstLaunch', true);
           context.go('/overview');
         }
       },
     );
-  }
-
-  Future<void> _initPreferences() async {
-    _preferences = await SharedPreferences.getInstance();
   }
 }

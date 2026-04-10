@@ -16,13 +16,13 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/overview',
+  initialLocation: '/create-balance',
   redirect: (context, state) async {
     final preferences = await SharedPreferences.getInstance();
-    final isFirstLaunch = preferences.getBool('isFirstLaunch') ?? false;
+    final isFirstLaunch = preferences.getBool('isBalanceCreated') ?? false;
 
     Future.delayed(Duration(milliseconds: 500));
-    if (state.matchedLocation == '/splash') {
+    if (state.matchedLocation == '/create-balance') {
       return isFirstLaunch ? '/overview' : '/create-balance';
     }
     return null;
