@@ -5,7 +5,6 @@ import 'package:finance_tracker/core/utils/message_snack_bar.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_income_event.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_input_field.dart';
-import 'package:finance_tracker/features/add_entry/presentation/widgets/income_sources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -42,7 +41,7 @@ class IncomeScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Категории',
+                    'Источник дохода',
                     style: TextStyle(
                       color: textColorSecondary,
                       fontSize: textSize16,
@@ -55,25 +54,12 @@ class IncomeScreen extends StatelessWidget {
                   child: CategoriesList(
                     expenseList: context
                         .read<AddIncomeBloc>()
-                        .getCategoriesList(),
+                        .getIncomeSourcesList(),
                     onCategorySelected: (category) => context
                         .read<AddIncomeBloc>()
                         .setSelectedCategory(category),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Источник дохода',
-                    style: TextStyle(
-                      color: textColorSecondary,
-                      fontSize: textSize16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                SizedBox(height: height12),
-                SizedBox(height: 116, child: IncomeSources()),
                 SizedBox(height: height12),
                 Align(
                   alignment: Alignment.centerLeft,

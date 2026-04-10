@@ -54,10 +54,7 @@ class AddIncomeBloc extends Bloc<AddIncomeEvent, AddIncomeState> {
     });
   }
 
-  List<CategoryEntity> getCategoriesList() =>
-      _getExpenseCategoriesUseCase.getExpenseCategories();
-
-  List<String> getIncomeSourcesList() =>
+  List<CategoryEntity> getIncomeSourcesList() =>
       _getIncomeSourcesUseCase.getIncomeSources();
 
   void setSum(int sum) {
