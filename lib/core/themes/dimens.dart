@@ -1,4 +1,5 @@
 // Paddings
+final double padding8 = 8;
 final double padding12 = 12.0;
 final double paddingVertical24 = 24;
 final double paddingVertical40 = 40;
@@ -41,6 +42,7 @@ final double width100 = 100;
 // Circulars
 final double circular2 = 2;
 final double circular12 = 12;
+final double circular100 = 100;
 
 // Icons Sizes
 final double bottomNavigationIconSize = 30;

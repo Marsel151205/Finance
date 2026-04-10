@@ -72,8 +72,9 @@ class _MainPageState extends State<MainPage>
                     children: [
                       Expanded(
                         child: TotalIncomeAndExpenseWidget(
-                          widgetBackgroundColor: expenseWidgetBackground,
-                          textColor: expenseWidgetTextColor,
+                          isExpense: false,
+                          widgetBackgroundColor: incomeWidgetBackground,
+                          textColor: incomeWidgetTextColor,
                           title: 'Доходы',
                           sum: state.totalIncome ?? 0,
                         ),
@@ -81,8 +82,9 @@ class _MainPageState extends State<MainPage>
                       SizedBox(width: width12),
                       Expanded(
                         child: TotalIncomeAndExpenseWidget(
-                          widgetBackgroundColor: incomeWidgetBackground,
-                          textColor: incomeWidgetTextColor,
+                          isExpense: true,
+                          widgetBackgroundColor: expenseWidgetBackground,
+                          textColor: expenseWidgetTextColor,
                           title: 'Расходы',
                           sum: state.totalExpense ?? 0,
                         ),
