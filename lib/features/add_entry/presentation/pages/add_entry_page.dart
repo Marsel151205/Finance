@@ -1,4 +1,5 @@
 import 'package:finance_tracker/app/di/injection.dart';
+import 'package:finance_tracker/core/widgets/custom_tab_bar.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/expense_screen.dart';
 import 'package:finance_tracker/features/add_entry/presentation/pages/income_screen.dart';
@@ -39,15 +40,17 @@ class _AddEntryPageState extends State<AddEntryPage>
       backgroundColor: backgroundColor,
       body: Column(
         children: [
-          TabBar(
-            labelColor: selectedTextColor,
-            unselectedLabelColor: unselectedTextColor,
-            labelStyle: TextStyle(fontSize: textSize16),
-            controller: _tabController,
-            tabs: const [
-              Tab(text: 'Расходы'),
-              Tab(text: 'Доходы'),
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: paddingHorizontal12),
+            child: AnimatedBuilder(
+              animation: _tabController.animation!,
+              builder: (context, child) {
+                return CustomTabBar(
+                  selectedIndex: _tabController.animation!.value,
+                  onTap: (index) => _tabController.animateTo(index),
+                );
+              },
+            ),
           ),
           Expanded(
             child: TabBarView(

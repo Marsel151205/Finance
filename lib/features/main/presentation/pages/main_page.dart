@@ -1,6 +1,7 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/utils/loading_overlay.dart';
 import 'package:finance_tracker/core/utils/message_snack_bar.dart';
+import 'package:finance_tracker/core/widgets/custom_tab_bar.dart';
 import 'package:finance_tracker/features/main/presentation/bloc/overview/overview_bloc.dart';
 import 'package:finance_tracker/features/main/presentation/bloc/overview/overview_state.dart';
 import 'package:finance_tracker/features/main/presentation/pages/expense_list_screen.dart';
@@ -91,15 +92,15 @@ class _MainPageState extends State<MainPage>
                       ),
                     ],
                   ),
-                  TabBar(
-                    labelColor: selectedTextColor,
-                    unselectedLabelColor: unselectedTextColor,
-                    labelStyle: TextStyle(fontSize: textSize16),
-                    controller: _tabController,
-                    tabs: const [
-                      Tab(text: 'Расходы'),
-                      Tab(text: 'Доходы'),
-                    ],
+                  SizedBox(height: height12),
+                  AnimatedBuilder(
+                    animation: _tabController.animation!,
+                    builder: (context, child) {
+                      return CustomTabBar(
+                        selectedIndex: _tabController.animation!.value,
+                        onTap: (index) => _tabController.animateTo(index),
+                      );
+                    },
                   ),
                   Expanded(
                     child: TabBarView(
