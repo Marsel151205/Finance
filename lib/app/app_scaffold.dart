@@ -35,7 +35,7 @@ class _AppScaffoldState extends State<AppScaffold> {
       ),
       body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: bottomNavColor,
+        backgroundColor: surface,
         selectedItemColor: selectedBottomNavItemColor,
         unselectedItemColor: selectedBottomNavItemColor,
         showSelectedLabels: false,

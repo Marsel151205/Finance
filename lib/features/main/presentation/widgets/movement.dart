@@ -13,8 +13,12 @@ class Movement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card.outlined(
-      color: surfaceColor,
+    return Container(
+      decoration: BoxDecoration(
+        color: surface,
+        borderRadius: BorderRadius.circular(circular12),
+        boxShadow: [BoxShadow(color: surfaceVariant, blurRadius: 10.0)],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

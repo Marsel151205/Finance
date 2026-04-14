@@ -31,6 +31,7 @@ final Color incomeWidgetBackground = Color(0xFFECFDF5);
 final Color expenseWidgetBackground = Color(0xFFFEF2F2);
 final Color incomeBackground = Color(0xFFD1FAE5);
 final Color expenseBackground = Color(0xFFFEE2E2);
+final Color surface = Color(0xFFFFFFFF);
 
 // Stroke Colors
 final Color strokeColorPrimary = Color(0xFFe1e2e3);
