@@ -1,5 +1,5 @@
-import 'package:finance_tracker/features/add_entry/domain/entities/expense_category_entity.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_state.dart';
+import 'package:finance_tracker/shared/category/presentation/models/category_model_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../shared/income_and_expense/presentation/models/expense_model.dart';
@@ -16,6 +16,10 @@ class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {
     on<SaveExpenseEvent>((event, emit) async {
       await _saveExpense(event, emit);
     });
+    on<UploadExpenseCategoriesEvent>((event, emit) async {
+      await _uploadExpenseCategories(event, emit);
+    });
+    add(UploadExpenseCategoriesEvent());
   }
 
   int _sum = 0;
@@ -42,8 +46,23 @@ class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {
     });
   }
 
-  List<CategoryEntity> getExpenseCategories() =>
-      _getExpenseCategoriesUseCase.getExpenseCategories();
+  Future<void> _uploadExpenseCategories(
+    UploadExpenseCategoriesEvent event,
+    Emitter<AddExpenseState> emit,
+  ) async {
+    emit(LoadingAddExpenseState());
+    final expenseCategoriesResult = await _getExpenseCategoriesUseCase
+        .getExpenseCategories();
+
+    return expenseCategoriesResult.fold(
+      (failure) => emit(ErrorAddExpenseState(failure)),
+      (expenseCategories) => emit(
+        SuccessUploadExpenseCategoriesState(
+          expenseCategories.map((category) => category.toModelUi()).toList(),
+        ),
+      ),
+    );
+  }
 
   void setSum(int sum) {
     _sum = sum;

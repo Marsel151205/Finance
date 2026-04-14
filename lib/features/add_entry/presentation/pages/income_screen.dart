@@ -49,17 +49,17 @@ class IncomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 220,
-                  child: CategoriesList(
-                    expenseList: context
-                        .read<AddIncomeBloc>()
-                        .getIncomeSourcesList(),
-                    onCategorySelected: (category) => context
-                        .read<AddIncomeBloc>()
-                        .setSelectedCategory(category),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 220,
+                //   child: CategoriesList(
+                //     expenseList: context
+                //         .read<AddIncomeBloc>()
+                //         .getIncomeSourcesList(),
+                //     onCategorySelected: (category) => context
+                //         .read<AddIncomeBloc>()
+                //         .setSelectedCategory(category),
+                //   ),
+                // ),
                 SizedBox(height: height12),
                 Align(
                   alignment: Alignment.centerLeft,

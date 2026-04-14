@@ -45,28 +45,28 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                   onInputAmount: (value) =>
                       context.read<AddExpenseBloc>().setSum(value),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Категории',
-                    style: TextStyle(
-                      color: textColorSecondary,
-                      fontSize: textSize16,
-                      fontWeight: FontWeight.w500,
+                if (state is SuccessUploadExpenseCategoriesState) ...[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Категории',
+                      style: TextStyle(
+                        color: textColorSecondary,
+                        fontSize: textSize16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 220,
-                  child: CategoriesList(
-                    expenseList: context
-                        .read<AddExpenseBloc>()
-                        .getExpenseCategories(),
-                    onCategorySelected: (title) => context
-                        .read<AddExpenseBloc>()
-                        .setSelectedCategory(title),
+                  SizedBox(
+                    height: 220,
+                    child: CategoriesList(
+                      expenseList: state.expenseCategories,
+                      onCategorySelected: (title) => context
+                          .read<AddExpenseBloc>()
+                          .setSelectedCategory(title),
+                    ),
                   ),
-                ),
+                ],
                 Container(
                   padding: EdgeInsets.all(padding12),
                   width: double.infinity,
@@ -177,6 +177,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
             status: true,
           );
         }
+        if (state is SuccessUploadExpenseCategoriesState) LoadingOverlay.hide();
         if (state is ErrorAddExpenseState) {
           LoadingOverlay.hide();
           showMessageSnackBar(

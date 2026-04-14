@@ -5,3 +5,7 @@ class SaveExpenseEvent extends AddExpenseEvent {
 
   SaveExpenseEvent(this.isUnnecessary);
 }
+
+class UploadExpenseCategoriesEvent extends AddExpenseEvent {
+  UploadExpenseCategoriesEvent();
+}

@@ -1,12 +1,17 @@
 import 'package:finance_tracker/app/database/database.dart';
 import 'package:finance_tracker/features/add_entry/data/repositories/add_expense_repository_impl.dart';
 import 'package:finance_tracker/features/add_entry/data/repositories/add_income_repository_impl.dart';
+import 'package:finance_tracker/features/add_entry/data/repositories/get_categories_repository_impl.dart';
 import 'package:finance_tracker/features/add_entry/domain/repositories/add_income_repository.dart';
+import 'package:finance_tracker/features/add_entry/domain/repositories/get_categories_repository.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/add_expense_use_case.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/add_income_use_case.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_expense_categories_use_case.dart';
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_income_sources_use_case.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_income_bloc.dart';
+import 'package:finance_tracker/features/create_balance/data/repositories/create_category_repository_impl.dart';
+import 'package:finance_tracker/features/create_balance/domain/repositories/create_category_repository.dart';
+import 'package:finance_tracker/features/create_balance/domain/use_cases/create_categories_use_case.dart';
 import 'package:finance_tracker/features/create_balance/presentation/bloc/create_balance_bloc.dart';
 import 'package:finance_tracker/features/main/data/repositories/expense_list_repository_impl.dart';
 import 'package:finance_tracker/features/main/data/repositories/income_list_repository_impl.dart';
@@ -42,7 +47,7 @@ void initDependencies() {
     () => AddExpenseUseCase(serviceLocator(), serviceLocator()),
   );
   serviceLocator.registerLazySingleton<GetExpenseCategoriesUseCase>(
-    () => GetExpenseCategoriesUseCase(),
+    () => GetExpenseCategoriesUseCase(serviceLocator()),
   );
   serviceLocator.registerFactory<AddExpenseBloc>(
     () => AddExpenseBloc(serviceLocator(), serviceLocator()),
@@ -99,11 +104,22 @@ void initDependencies() {
     () => AddBalanceUseCase(serviceLocator()),
   );
   serviceLocator.registerFactory<CreateBalanceBloc>(
-    () => CreateBalanceBloc(serviceLocator()),
+    () => CreateBalanceBloc(serviceLocator(), serviceLocator()),
   );
 
   // Overview
   serviceLocator.registerFactory<OverviewBloc>(
     () => OverviewBloc(serviceLocator(), serviceLocator(), serviceLocator()),
+  );
+
+  // Categories
+  serviceLocator.registerLazySingleton<CreateCategoryRepository>(
+    () => CreateCategoryRepositoryImpl(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<CreateCategoriesUseCase>(
+    () => CreateCategoriesUseCase(serviceLocator()),
+  );
+  serviceLocator.registerLazySingleton<GetCategoriesRepository>(
+    () => GetCategoriesRepositoryImpl(serviceLocator()),
   );
 }

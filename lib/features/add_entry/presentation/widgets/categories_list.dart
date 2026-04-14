@@ -1,8 +1,9 @@
 import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/themes/dimens.dart';
+import 'package:finance_tracker/shared/category/presentation/models/category_model_ui.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/expense_category_entity.dart';
+import '../../../../shared/category/domain/entities/expense_category_entity.dart';
 
 class CategoriesList extends StatefulWidget {
   const CategoriesList({
@@ -12,7 +13,7 @@ class CategoriesList extends StatefulWidget {
     this.initialSelectedIndex,
   });
 
-  final List<CategoryEntity> expenseList;
+  final List<CategoryModelUi> expenseList;
   final ValueChanged<String> onCategorySelected;
   final int? initialSelectedIndex;
 
@@ -50,7 +51,7 @@ class _CategoriesListState extends State<CategoriesList> {
             setState(() {
               _selectedIndex = isSelected ? null : index;
             });
-            widget.onCategorySelected(item.title);
+            widget.onCategorySelected(item.category);
           },
           child: Container(
             decoration: BoxDecoration(
@@ -68,7 +69,7 @@ class _CategoriesListState extends State<CategoriesList> {
               children: [
                 Text(item.icon ?? '❔', style: TextStyle(fontSize: textSize18)),
                 Text(
-                  item.title,
+                  item.category,
                   style: TextStyle(
                     fontSize: textSize12,
                     fontWeight: FontWeight.w500,
