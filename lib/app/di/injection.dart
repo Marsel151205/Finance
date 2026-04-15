@@ -60,9 +60,11 @@ void initDependencies() {
   serviceLocator.registerLazySingleton<AddIncomeUseCase>(
     () => AddIncomeUseCase(serviceLocator(), serviceLocator()),
   );
-  serviceLocator.registerLazySingleton(() => GetIncomeSourcesUseCase());
+  serviceLocator.registerLazySingleton(
+    () => GetIncomeSourcesUseCase(serviceLocator()),
+  );
   serviceLocator.registerFactory<AddIncomeBloc>(
-    () => AddIncomeBloc(serviceLocator(), serviceLocator(), serviceLocator()),
+    () => AddIncomeBloc(serviceLocator(), serviceLocator()),
   );
 
   // Expense List

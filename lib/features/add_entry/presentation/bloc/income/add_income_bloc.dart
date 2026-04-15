@@ -1,4 +1,5 @@
 import 'package:finance_tracker/features/add_entry/domain/use_cases/get_income_sources_use_case.dart';
+import 'package:finance_tracker/shared/category/presentation/models/category_model_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../shared/income_and_expense/presentation/models/income_model.dart';
@@ -9,18 +10,18 @@ import 'add_income_event.dart';
 import 'add_income_state.dart';
 
 class AddIncomeBloc extends Bloc<AddIncomeEvent, AddIncomeState> {
-  final GetIncomeSourcesUseCase _getIncomeSourcesUseCase;
-  final GetExpenseCategoriesUseCase _getExpenseCategoriesUseCase;
   final AddIncomeUseCase _addIncomeUseCase;
+  final GetIncomeSourcesUseCase _getIncomeSourcesUseCase;
 
-  AddIncomeBloc(
-    this._getIncomeSourcesUseCase,
-    this._getExpenseCategoriesUseCase,
-    this._addIncomeUseCase,
-  ) : super(AddIncomeState()) {
+  AddIncomeBloc(this._addIncomeUseCase, this._getIncomeSourcesUseCase)
+    : super(AddIncomeState()) {
     on<SaveIncomeEvent>((event, emit) async {
       await _saveIncome(event, emit);
     });
+    on<UploadIncomeCategoriesEvent>((event, emit) async {
+      await _uploadCategories(event, emit);
+    });
+    add(UploadIncomeCategoriesEvent());
   }
 
   int? _selectedCategoryIndex;
@@ -54,8 +55,25 @@ class AddIncomeBloc extends Bloc<AddIncomeEvent, AddIncomeState> {
     });
   }
 
-  List<CategoryEntity> getIncomeSourcesList() =>
-      _getIncomeSourcesUseCase.getIncomeSources();
+  Future<void> _uploadCategories(
+    UploadIncomeCategoriesEvent event,
+    Emitter<AddIncomeState> emit,
+  ) async {
+    emit(LoadingAddIncomeState());
+    final getCategoriesResult = await _getIncomeSourcesUseCase
+        .getIncomeSources();
+
+    return getCategoriesResult.fold(
+      (failure) => emit(ErrorAddIncomeState(failure)),
+      (categories) {
+        emit(
+          SuccessUploadIncomeCategoriesState(
+            categories.map((category) => category.toModelUi()).toList(),
+          ),
+        );
+      },
+    );
+  }
 
   void setSum(int sum) {
     _sum = sum;

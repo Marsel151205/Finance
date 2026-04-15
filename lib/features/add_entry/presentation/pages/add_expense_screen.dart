@@ -25,6 +25,9 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddExpenseBloc, AddExpenseState>(
+      buildWhen: (previous, current) =>
+          current is! SuccessAddExpenseState &&
+          current is! LoadingAddExpenseState,
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.only(left: paddingLeft10, right: paddingRight10),
@@ -169,17 +172,15 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
       },
       listener: (context, state) {
         if (state is LoadingAddExpenseState) LoadingOverlay.show(context);
+        if (state is! LoadingAddExpenseState) LoadingOverlay.hide();
         if (state is SuccessAddExpenseState) {
-          LoadingOverlay.hide();
           showMessageSnackBar(
             context,
             title: 'Расход успешно добавлен',
             status: true,
           );
         }
-        if (state is SuccessUploadExpenseCategoriesState) LoadingOverlay.hide();
         if (state is ErrorAddExpenseState) {
-          LoadingOverlay.hide();
           showMessageSnackBar(
             context,
             title: state.errorMessage,

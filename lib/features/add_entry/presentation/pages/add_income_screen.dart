@@ -3,7 +3,6 @@ import 'package:finance_tracker/core/themes/dimens.dart';
 import 'package:finance_tracker/core/utils/loading_overlay.dart';
 import 'package:finance_tracker/core/utils/message_snack_bar.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/income/add_income_event.dart';
-import 'package:finance_tracker/features/add_entry/presentation/widgets/categories_list.dart';
 import 'package:finance_tracker/features/add_entry/presentation/widgets/comment_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/income_and_expense/presentation/widgets/amount_input_field.dart';
 import '../bloc/income/add_income_bloc.dart';
 import '../bloc/income/add_income_state.dart';
+import '../widgets/categories_list.dart';
 
 class IncomeScreen extends StatelessWidget {
   const IncomeScreen({super.key});
@@ -18,6 +18,9 @@ class IncomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddIncomeBloc, AddIncomeState>(
+      buildWhen: (previous, current) =>
+          current is! SuccessAddIncomeState &&
+          current is! LoadingAddIncomeState,
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.only(left: paddingLeft10, right: paddingRight10),
@@ -49,17 +52,17 @@ class IncomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // SizedBox(
-                //   height: 220,
-                //   child: CategoriesList(
-                //     expenseList: context
-                //         .read<AddIncomeBloc>()
-                //         .getIncomeSourcesList(),
-                //     onCategorySelected: (category) => context
-                //         .read<AddIncomeBloc>()
-                //         .setSelectedCategory(category),
-                //   ),
-                // ),
+                if (state is SuccessUploadIncomeCategoriesState) ...[
+                  SizedBox(
+                    height: 220,
+                    child: CategoriesList(
+                      expenseList: state.categories,
+                      onCategorySelected: (category) => context
+                          .read<AddIncomeBloc>()
+                          .setSelectedCategory(category),
+                    ),
+                  ),
+                ],
                 SizedBox(height: height12),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -111,8 +114,8 @@ class IncomeScreen extends StatelessWidget {
       },
       listener: (context, state) {
         if (state is LoadingAddIncomeState) LoadingOverlay.show(context);
+        if (state is! LoadingAddIncomeState) LoadingOverlay.hide();
         if (state is ErrorAddIncomeState) {
-          LoadingOverlay.hide();
           showMessageSnackBar(
             context,
             title: state.errorMessage,
@@ -120,7 +123,6 @@ class IncomeScreen extends StatelessWidget {
           );
         }
         if (state is SuccessAddIncomeState) {
-          LoadingOverlay.hide();
           showMessageSnackBar(
             context,
             title: 'Доход успешно сохранен',
