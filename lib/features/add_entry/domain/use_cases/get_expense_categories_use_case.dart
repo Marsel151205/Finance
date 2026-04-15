@@ -1,18 +1,21 @@
-import '../entities/expense_category_entity.dart';
+import 'package:finance_tracker/features/add_entry/domain/repositories/get_categories_repository.dart';
+import 'package:fpdart/fpdart.dart';
+
+import '../../../../shared/category/domain/entities/expense_category_entity.dart';
 
 class GetExpenseCategoriesUseCase {
-  List<CategoryEntity> getExpenseCategories() {
-    List<CategoryEntity> expenseList = [
-      CategoryEntity(title: 'Еда', icon: '🍕'),
-      CategoryEntity(title: 'Транспорт', icon: '🚗'),
-      CategoryEntity(title: 'Развелечение', icon: '🎮'),
-      CategoryEntity(title: 'Жилье', icon: '🏠'),
-      CategoryEntity(title: 'Здоровье', icon: '💊'),
-      CategoryEntity(title: 'Одежда', icon: '👕'),
-      CategoryEntity(title: 'Подписки', icon: '💳'),
-      CategoryEntity(title: 'Другое', icon: '📦'),
-    ];
+  final GetCategoriesRepository _getCategoriesRepository;
 
-    return expenseList;
+  const GetExpenseCategoriesUseCase(this._getCategoriesRepository);
+
+  Future<Either<String, List<CategoryEntity>>> getExpenseCategories() async {
+    final getCategoriesResult = await _getCategoriesRepository.getCategories();
+    return getCategoriesResult.fold((failure) => Left(failure), (
+      categoriesList,
+    ) {
+      return Right(
+        categoriesList.where((category) => category.isExpense == true).toList(),
+      );
+    });
   }
 }

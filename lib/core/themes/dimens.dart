@@ -1,14 +1,20 @@
 // Paddings
+final double padding4 = 4;
+final double padding8 = 8;
 final double padding12 = 12.0;
 final double paddingVertical24 = 24;
 final double paddingVertical40 = 40;
+final double paddingHorizontal12 = 12;
 final double paddingHorizontal24 = 24;
 final double paddingLeft6 = 6;
 final double paddingLeft10 = 10;
+final double paddingLeft16 = 16;
 final double paddingRight6 = 6;
 final double paddingRight10 = 10;
+final double paddingRight16 = 16;
 final double paddingTop10 = 10;
 final double paddingTop16 = 16;
+final double paddingBottom10 = 10;
 final double paddingBottom16 = 16;
 
 // Text Sizes
@@ -27,15 +33,20 @@ final double height4 = 4;
 final double height6 = 6;
 final double height12 = 12;
 final double height16 = 16;
+final double height20 = 20;
+final double height24 = 24;
 
 // Widths
+final double width4 = 4;
 final double width12 = 12;
 final double width120 = 120;
 final double width100 = 100;
 
 // Circulars
+final double circular10 = 10;
 final double circular2 = 2;
 final double circular12 = 12;
+final double circular100 = 100;
 
 // Icons Sizes
 final double bottomNavigationIconSize = 30;

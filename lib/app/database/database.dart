@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
-import 'package:finance_tracker/features/add_entry/presentation/widgets/income_sources.dart';
+import 'package:finance_tracker/core/converters/color_converter.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
@@ -30,12 +30,35 @@ class IncomeItem extends Table {
   TextColumn get comment => text().nullable()();
 }
 
-@DriftDatabase(tables: [ExpenseItem, IncomeItem])
+class BalanceItem extends Table {
+  IntColumn get id => integer()();
+
+  IntColumn get balance => integer()();
+
+  DateTimeColumn get updateAt => dateTime()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {id};
+}
+
+class CategoryItem extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  TextColumn get category => text().nullable()();
+
+  TextColumn get icon => text().nullable()();
+
+  IntColumn get color => integer()();
+
+  BoolColumn get isExpense => boolean().withDefault(const Constant(true))();
+}
+
+@DriftDatabase(tables: [ExpenseItem, IncomeItem, BalanceItem, CategoryItem])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   static QueryExecutor _openConnection() {
     return driftDatabase(

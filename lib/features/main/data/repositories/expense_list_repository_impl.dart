@@ -1,9 +1,9 @@
 import 'package:finance_tracker/features/main/domain/repositories/expense_list_repository.dart';
-import 'package:finance_tracker/shared/data/models/expense_data_extensions.dart';
-import 'package:finance_tracker/shared/domain/entities/expense_entity.dart';
 import 'package:fpdart/src/either.dart';
 
 import '../../../../app/database/database.dart';
+import '../../../../shared/income_and_expense/data/models/expense_data_extensions.dart';
+import '../../../../shared/income_and_expense/domain/entities/expense_entity.dart';
 
 class ExpenseListRepositoryImpl extends ExpenseListRepository {
   final AppDatabase appDatabase;

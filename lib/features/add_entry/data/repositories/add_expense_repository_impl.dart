@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
-import 'package:finance_tracker/shared/domain/entities/expense_entity.dart';
 import 'package:finance_tracker/features/add_entry/domain/repositories/add_expense_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../app/database/database.dart';
+import '../../../../shared/income_and_expense/domain/entities/expense_entity.dart';
 
 class AddExpenseRepositoryImpl implements AddExpenseRepository {
   final AppDatabase appDatabase;

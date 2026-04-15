@@ -1,11 +1,13 @@
+import 'package:finance_tracker/core/themes/colors.dart';
 import 'package:finance_tracker/core/utils/loading_overlay.dart';
 import 'package:finance_tracker/core/utils/message_snack_bar.dart';
 import 'package:finance_tracker/features/main/presentation/widgets/movement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/expense_list_bloc.dart';
-import '../bloc/expense_list_state.dart';
+import '../../../../core/themes/dimens.dart';
+import '../bloc/expense/expense_list_bloc.dart';
+import '../bloc/expense/expense_list_state.dart';
 
 class ExpenseListScreen extends StatelessWidget {
   const ExpenseListScreen({super.key});
@@ -16,12 +18,40 @@ class ExpenseListScreen extends StatelessWidget {
       builder: (context, state) {
         if (state is SuccessExpenseListState) {
           LoadingOverlay.hide();
-          final expenseList = state.model;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: ListView.builder(
+          if (state.model.isEmpty) {
+            return Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Операций нет',
+                style: TextStyle(
+                  color: textColorPrimary,
+                  fontSize: textSize18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            );
+          } else {
+            final expenseList = state.model;
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: height12),
+                      Text(
+                        'Недавние операции',
+                        style: TextStyle(
+                          color: textColorPrimary,
+                          fontSize: textSize18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: height12),
+                    ],
+                  ),
+                ),
+                SliverList.builder(
                   itemCount: expenseList.length,
                   itemBuilder: (context, index) {
                     final expenseItem = expenseList[index];
@@ -31,9 +61,9 @@ class ExpenseListScreen extends StatelessWidget {
                     );
                   },
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          }
         }
         return SizedBox();
       },

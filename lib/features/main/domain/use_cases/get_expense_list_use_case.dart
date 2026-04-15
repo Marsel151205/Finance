@@ -1,6 +1,7 @@
 import 'package:finance_tracker/features/main/domain/repositories/expense_list_repository.dart';
-import 'package:finance_tracker/shared/domain/entities/expense_entity.dart';
 import 'package:fpdart/fpdart.dart';
+
+import '../../../../shared/income_and_expense/domain/entities/expense_entity.dart';
 
 class GetExpenseListUseCase {
   final ExpenseListRepository _repository;
