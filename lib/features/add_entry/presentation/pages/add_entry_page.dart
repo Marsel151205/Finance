@@ -1,8 +1,8 @@
 import 'package:finance_tracker/app/di/injection.dart';
 import 'package:finance_tracker/core/widgets/custom_tab_bar.dart';
 import 'package:finance_tracker/features/add_entry/presentation/bloc/expense/add_expense_bloc.dart';
-import 'package:finance_tracker/features/add_entry/presentation/pages/expense_screen.dart';
-import 'package:finance_tracker/features/add_entry/presentation/pages/income_screen.dart';
+import 'package:finance_tracker/features/add_entry/presentation/pages/add_expense_screen.dart';
+import 'package:finance_tracker/features/add_entry/presentation/pages/add_income_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
